@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = 3000;
-//const playerRoutes = require("./routes/players");
+const userRoutes = require("./Routes/users");
 const mongoose = require("mongoose");
 const UserData = require("./Schemas/UserData");
 
@@ -27,4 +27,4 @@ app.use((req, res, next) => {
   next();
 });
 
-//app.use("/api/players", playerRoutes);
+app.use("/api/users", userRoutes);
