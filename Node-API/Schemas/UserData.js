@@ -32,7 +32,8 @@ const UserDataSchema = new mongoose.Schema({
   },
 });
 UserDataSchema.set("collection", "UserData");
-module.exports = mongoose.model("UserData", UserDataSchema);
+const UserData = mongoose.model("UserData", UserDataSchema);
+module.exports = UserData;
 
 /*
 Movie
