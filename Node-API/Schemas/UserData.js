@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const Movie = require("./Movie.js");
-const Friend = require("./Friend.js");
 const UserDataSchema = new mongoose.Schema({
   Username: {
     type: String,

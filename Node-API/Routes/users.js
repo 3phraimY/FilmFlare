@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const UserData = require("../Schemas/UserData.js");
-const mongoose = require("mongoose");
 
 //POST user
 router.post("/adduser", async (req, res) => {
