@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const MovieSchema = new mongoose.Schema({
   IMDBid: {
     type: String,
@@ -13,4 +14,5 @@ const MovieSchema = new mongoose.Schema({
     required: false,
   },
 });
+
 module.exports = mongoose.model("Movie", MovieSchema);

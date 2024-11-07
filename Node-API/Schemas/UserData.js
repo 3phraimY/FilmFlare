@@ -7,52 +7,38 @@ const UserDataSchema = new mongoose.Schema({
     required: true,
   },
   Password: {
-    type: Number,
+    type: String,
     required: true,
   },
-  MyList: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Movie,
-    required: true,
-  },
-  MyFavorites: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Movie,
-    required: true,
-  },
-  ToWatch: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Movie,
-    required: true,
-  },
-  Friends: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Friend,
-    required: true,
-  },
+  MyList: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Movie",
+      required: true,
+    },
+  ],
+  MyFavorites: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Movie",
+      required: true,
+    },
+  ],
+  ToWatch: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Movie",
+      required: true,
+    },
+  ],
+  Friends: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Friend",
+      required: true,
+    },
+  ],
 });
+
 UserDataSchema.set("collection", "UserData");
-const UserData = mongoose.model("UserData", UserDataSchema);
-module.exports = UserData;
-
-/*
-Movie
-Title
-IMDb id
-UserRating
-
-Friend
-username
-Recommendations[]
-
-
-User
-Username
-Password
-MyList[]
-MyFavorites[]
-ToWatch[]
-Friends[]
-
-
-*/
+module.exports = mongoose.model("UserData", UserDataSchema);
