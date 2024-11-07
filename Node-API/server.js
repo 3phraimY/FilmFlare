@@ -4,7 +4,6 @@ const app = express();
 const port = 3000;
 const userRoutes = require("./Routes/users");
 const mongoose = require("mongoose");
-const UserData = require("./Schemas/UserData");
 
 // connect to online MongoDB
 mongoose
