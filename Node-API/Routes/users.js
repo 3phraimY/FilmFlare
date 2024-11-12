@@ -16,6 +16,21 @@ router.post("/adduser", async (req, res) => {
 //GET all users
 
 //GET single user
+router.get("/getuser/:username", async (req, res) => {
+  console.log("attempting to GET user");
+  const username = req.params.username;
+
+  try {
+    const user = await UserData.findOne({ Username: username });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error("Error retrieving user data:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 //PATCH single user
 router.patch("/updateuser/:username", async (req, res) => {
