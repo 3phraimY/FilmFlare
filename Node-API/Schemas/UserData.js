@@ -1,58 +1,57 @@
 const mongoose = require("mongoose");
-const Movie = require("./Movie.js");
-const Friend = require("./Friend.js");
-const UserDataSchema = new mongoose.Schema({
-  Username: {
-    type: String,
-    required: true,
+
+const MovieSchema = new mongoose.Schema(
+  {
+    IMDBid: {
+      type: String,
+      required: true,
+    },
+    Title: {
+      type: String,
+      required: true,
+    },
+    UserRating: {
+      type: Number,
+      required: false,
+    },
   },
-  Password: {
-    type: Number,
-    required: true,
+  { _id: false }
+);
+
+const FriendSchema = new mongoose.Schema(
+  {
+    Username: {
+      type: String,
+      required: true,
+    },
+    Recommendations: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Movie",
+        required: true,
+      },
+    ],
   },
-  MyList: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Movie,
-    required: true,
+  { _id: false }
+);
+
+const UserDataSchema = new mongoose.Schema(
+  {
+    Username: {
+      type: String,
+      required: true,
+    },
+    Password: {
+      type: String,
+      required: true,
+    },
+    MyList: [MovieSchema],
+    MyFavorites: [MovieSchema],
+    ToWatch: [MovieSchema],
+    Friends: [FriendSchema],
   },
-  MyFavorites: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Movie,
-    required: true,
-  },
-  ToWatch: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Movie,
-    required: true,
-  },
-  Friends: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Friend,
-    required: true,
-  },
-});
+  { versionKey: false }
+);
+
 UserDataSchema.set("collection", "UserData");
-const UserData = mongoose.model("UserData", UserDataSchema);
-module.exports = UserData;
-
-/*
-Movie
-Title
-IMDb id
-UserRating
-
-Friend
-username
-Recommendations[]
-
-
-User
-Username
-Password
-MyList[]
-MyFavorites[]
-ToWatch[]
-Friends[]
-
-
-*/
+module.exports = mongoose.model("UserData", UserDataSchema);
