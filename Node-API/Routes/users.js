@@ -14,7 +14,11 @@ router.post("/adduser", async (req, res) => {
 });
 
 //GET all users
-
+router.get("/alluserdata", async (req, res) => {
+  console.log("Trying to get alluserdata");
+  const AllUserData = await UserData.find();
+  res.status(200).json(AllUserData);
+});
 //GET single user
 router.get("/getuser/:username", async (req, res) => {
   console.log("attempting to GET user");
