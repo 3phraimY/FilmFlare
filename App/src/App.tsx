@@ -1,21 +1,28 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignInPage from "./pages/SignInPage";
 import Header from "./pages/components/Header";
+import ErrorPage from "./pages/ErrorPage";
 import "./App.css";
 import { UserProvider } from "./contexts/UserDataContext";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <UserProvider>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/" element={<SignInPage />} />
-          </Routes>
-        </BrowserRouter>
-      </UserProvider>
-    </>
+    <UserProvider>
+      <BrowserRouter
+        future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
+      >
+        <Header />
+        <Routes>
+          <Route path="/mylist" element={<ErrorPage />} />
+          <Route path="/towatch" element={<ErrorPage />} />
+          <Route path="/favorites" element={<ErrorPage />} />
+          <Route path="/search" element={<ErrorPage />} />
+          <Route path="/friends" element={<ErrorPage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 

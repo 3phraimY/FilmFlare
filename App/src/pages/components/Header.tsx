@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import FilmFlareLogo from "../../assets/FilmFlame-Logo.png";
 import DownArrow from "../../assets/down-arrow.png";
 import UpArrow from "../../assets/up-arrow.png";
@@ -7,27 +7,66 @@ import { useEffect, useState } from "react";
 
 function Header() {
   const currentPage = useLocation();
+  const navigateTo = useNavigate();
   const [currentPageTitle, setCurrentPageTitle] = useState<string>("");
   const [isDropDownActive, setIsDropDownActive] = useState<boolean>();
+  const [displayDropDownArrow, setDisplayDropDownArrow] = useState<boolean>();
 
   //causes title to refresh when navigating to new page
   useEffect(() => {
     //sets title string based on url path
     switch (currentPage.pathname) {
-      case "/":
+      case "/mylist":
+        setCurrentPageTitle("MyList");
+        setDisplayDropDownArrow(true);
+        break;
+      case "/towatch":
+        setCurrentPageTitle("ToWatch");
+        setDisplayDropDownArrow(true);
+        break;
+      case "/favorites":
+        setCurrentPageTitle("Favorites");
+        setDisplayDropDownArrow(true);
+        break;
+      case "/search":
+        setCurrentPageTitle("Search");
+        setDisplayDropDownArrow(true);
+        break;
+      case "/friends":
+        setCurrentPageTitle("Friends");
+        setDisplayDropDownArrow(true);
+        break;
+      case "/signup":
+        setCurrentPageTitle("Setup");
+        setDisplayDropDownArrow(false);
+        break;
+      default:
         setCurrentPageTitle("Login");
+        setDisplayDropDownArrow(true);
+        break;
     }
   }, [currentPage]);
+
+  const getMenuItemClass = (path: string) => {
+    return currentPageTitle === path ? "menu-item-active" : "menu-item";
+  };
+
+  const handleNavigate = (path: string) => {
+    navigateTo(path);
+    setIsDropDownActive(false);
+  };
 
   return (
     <>
       <div className="header-wrapper">
-        <button
-          onClick={() => setIsDropDownActive(true)}
-          className="header-dropdown-button"
-        >
-          <img src={DownArrow} height={72} width={82} />
-        </button>
+        {displayDropDownArrow && (
+          <button
+            onClick={() => setIsDropDownActive(true)}
+            className="header-dropdown-button"
+          >
+            <img src={DownArrow} height={72} width={82} />
+          </button>
+        )}
         <div className="logo-wrapper">
           <img src={FilmFlareLogo} height={69} width={250}></img>
         </div>
@@ -41,11 +80,36 @@ function Header() {
           >
             <img src={UpArrow} height={50} width={82} />
           </button>
-          <div> My List</div>
-          <div> To-Watch</div>
-          <div>Favorites</div>
-          <div>Find Movies</div>
-          <div>Friends</div>
+          <button
+            onClick={() => handleNavigate("/mylist")}
+            className="menu-item-button"
+          >
+            <div className={getMenuItemClass("MyList")}> My List</div>
+          </button>
+          <button
+            onClick={() => handleNavigate("/towatch")}
+            className="menu-item-button"
+          >
+            <div className={getMenuItemClass("ToWatch")}> To-Watch</div>
+          </button>
+          <button
+            onClick={() => handleNavigate("/favorites")}
+            className="menu-item-button"
+          >
+            <div className={getMenuItemClass("Favorites")}>Favorites</div>
+          </button>
+          <button
+            onClick={() => handleNavigate("/search")}
+            className="menu-item-button"
+          >
+            <div className={getMenuItemClass("Search")}>Find Movies</div>
+          </button>
+          <button
+            onClick={() => handleNavigate("/friends")}
+            className="menu-item-button"
+          >
+            <div className={getMenuItemClass("Friends")}>Friends</div>
+          </button>
         </div>
       )}
     </>
