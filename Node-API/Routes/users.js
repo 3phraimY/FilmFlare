@@ -19,6 +19,7 @@ router.get("/alluserdata", async (req, res) => {
   const AllUserData = await UserData.find();
   res.status(200).json(AllUserData);
 });
+
 //GET single user
 router.get("/getuser/:username", async (req, res) => {
   console.log("attempting to GET user");
@@ -58,5 +59,19 @@ router.patch("/updateuser/:username", async (req, res) => {
 });
 
 //DELETE single user
+router.delete("/delete/:username", async (req, res) => {
+  const username = req.params.username;
+
+  try {
+    const deletedUser = await UserData.findOneAndDelete({ Username: username });
+    if (!deletedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 module.exports = router;

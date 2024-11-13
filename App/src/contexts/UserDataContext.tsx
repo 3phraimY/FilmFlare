@@ -14,7 +14,7 @@ interface Friend {
 
 interface User {
   Username: string;
-  Password: number;
+  Password: string;
   MyList: Array<Movie>;
   MyFavorites: Array<Movie>;
   ToWatch: Array<Movie>;
