@@ -1,0 +1,25 @@
+.header-wrapper {
+  display: flex;
+  width: 100vw;
+  color: 011222;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  background-color: #011222;
+  height: 85px;
+}
+.current-page-title {
+  align-self: center;
+  position: absolute;
+  left: 50%;
+  color: #ee6c4d;
+}
+.header-dropdown-button {
+  background-color: #011222;
+  padding-top: 3px;
+}
+.logo-wrapper {
+  margin-top: 10px;
+}
+.current-page-title {
+  font-size: 30px;
+}
