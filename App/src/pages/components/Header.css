@@ -23,3 +23,16 @@
 .current-page-title {
   font-size: 30px;
 }
+.drop-down-menu {
+  position: absolute;
+  top: 0%;
+  height: 400px;
+  width: 300px;
+  background-color: #98c1d9;
+  border-top-right-radius: 45px;
+  border-bottom-right-radius: 45px;
+  border-bottom-left-radius: 45px;
+}
+.drop-down-menu-button {
+  background-color: #98c1d9;
+}
