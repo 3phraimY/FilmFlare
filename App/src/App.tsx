@@ -18,8 +18,8 @@ function App() {
           <Route path="/favorites" element={<ErrorPage />} />
           <Route path="/search" element={<ErrorPage />} />
           <Route path="/friends" element={<ErrorPage />} />
-          <Route path="/signin" element={<SignInPage />} />
-          <Route path="*" element={<ErrorPage />} />
+          <Route path="/signup" element={<ErrorPage />} />
+          <Route path="*" element={<SignInPage />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>
