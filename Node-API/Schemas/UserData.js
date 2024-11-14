@@ -14,6 +14,10 @@ const MovieSchema = new mongoose.Schema(
       type: Number,
       required: false,
     },
+    MoviePosterURL: {
+      type: String,
+      required: true,
+    },
   },
   { _id: false }
 );
