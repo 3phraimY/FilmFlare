@@ -16,7 +16,7 @@ function App() {
           <Route path="/mylist" element={<ErrorPage />} />
           <Route path="/towatch" element={<ErrorPage />} />
           <Route path="/favorites" element={<ErrorPage />} />
-          <Route path="/search" element={<ErrorPage />} />
+          <Route path="/findmovies" element={<ErrorPage />} />
           <Route path="/friends" element={<ErrorPage />} />
           <Route path="/signup" element={<ErrorPage />} />
           <Route path="*" element={<SignInPage />} />

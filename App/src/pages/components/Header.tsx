@@ -17,19 +17,19 @@ function Header() {
     //sets title string based on url path
     switch (currentPage.pathname) {
       case "/mylist":
-        setCurrentPageTitle("MyList");
+        setCurrentPageTitle("My List");
         setDisplayDropDownArrow(true);
         break;
       case "/towatch":
-        setCurrentPageTitle("ToWatch");
+        setCurrentPageTitle("To-Watch");
         setDisplayDropDownArrow(true);
         break;
       case "/favorites":
         setCurrentPageTitle("Favorites");
         setDisplayDropDownArrow(true);
         break;
-      case "/search":
-        setCurrentPageTitle("Search");
+      case "/findmovies":
+        setCurrentPageTitle("Find Movies");
         setDisplayDropDownArrow(true);
         break;
       case "/friends":
@@ -84,13 +84,13 @@ function Header() {
             onClick={() => handleNavigate("/mylist")}
             className="menu-item-button"
           >
-            <div className={getMenuItemClass("MyList")}> My List</div>
+            <div className={getMenuItemClass("My List")}> My List</div>
           </button>
           <button
             onClick={() => handleNavigate("/towatch")}
             className="menu-item-button"
           >
-            <div className={getMenuItemClass("ToWatch")}> To-Watch</div>
+            <div className={getMenuItemClass("To-Watch")}> To-Watch</div>
           </button>
           <button
             onClick={() => handleNavigate("/favorites")}
@@ -99,10 +99,10 @@ function Header() {
             <div className={getMenuItemClass("Favorites")}>Favorites</div>
           </button>
           <button
-            onClick={() => handleNavigate("/search")}
+            onClick={() => handleNavigate("/findmovies")}
             className="menu-item-button"
           >
-            <div className={getMenuItemClass("Search")}>Find Movies</div>
+            <div className={getMenuItemClass("Find Movies")}>Find Movies</div>
           </button>
           <button
             onClick={() => handleNavigate("/friends")}
