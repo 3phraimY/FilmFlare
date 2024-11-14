@@ -5,6 +5,7 @@ interface Movie {
   IMDBid: string;
   Title: string;
   UserRating: number;
+  MoviePosterURL: string;
 }
 
 interface Friend {
