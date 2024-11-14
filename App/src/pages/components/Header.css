@@ -1,4 +1,5 @@
 .header-wrapper {
+  position: relative;
   display: flex;
   width: 100vw;
   color: 011222;
@@ -8,10 +9,14 @@
   height: 85px;
 }
 .current-page-title {
+  font-size: 45px;
   align-self: center;
   position: absolute;
+  top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
   color: #ee6c4d;
+  margin-top: 8px;
 }
 .header-dropdown-button {
   background-color: #011222;
@@ -20,6 +25,37 @@
 .logo-wrapper {
   margin-top: 10px;
 }
-.current-page-title {
-  font-size: 30px;
+.drop-down-menu {
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  display: inline-grid;
+  height: 400px;
+  width: 300px;
+  background-color: #98c1d9;
+  border-top-right-radius: 45px;
+  border-bottom-right-radius: 45px;
+  border-bottom-left-radius: 45px;
+}
+.drop-down-menu-button {
+  background-color: #98c1d9;
+  width: 120px;
+}
+.menu-item {
+  font-size: 35px;
+  width: 235px;
+  place-self: center;
+}
+.menu-item-active {
+  font-size: 35px;
+  width: 235px;
+  place-self: center;
+  color: #ee6c4d;
+}
+.menu-item-button {
+  width: 225px;
+  place-self: center;
+  background: repeat;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
