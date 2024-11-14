@@ -6,7 +6,7 @@ import axios from "axios";
 const BaseUrl = "http://localhost:3000/api";
 
 //Seach for user by username
-export async function GetUserDataByUsername(username?: String) {
+export async function GetUserDataByUsername(username?: string) {
   try {
     const response = await axios.get(`${BaseUrl}/getuser/${username}`);
     console.log(response.data);
@@ -30,12 +30,12 @@ export async function DoesUsernameAlreadyExist(username: String) {
 }
 
 //Create User
-export async function CreateUser(username: String, password: String) {
-  const isInvalidUsername = await DoesUsernameAlreadyExist(username);
-  if (isInvalidUsername) {
-    console.log(`username ${username} already exists`);
-    return;
-  }
+export async function CreateUser(username: string, password: string) {
+  // const isInvalidUsername = await DoesUsernameAlreadyExist(username);
+  // if (isInvalidUsername) {
+  //   console.log(`username ${username} already exists`);
+  //   return;
+  // }
   try {
     const NewUserData = {
       Username: username,
