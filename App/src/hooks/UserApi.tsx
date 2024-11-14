@@ -6,14 +6,13 @@ import axios from "axios";
 const BaseUrl = "http://localhost:3000/api";
 
 //Seach for user by username
-export async function GetUserDataByUsername(username?: string) {
+export async function GetUserDataByUsername(username: string) {
   try {
     const response = await axios.get(`${BaseUrl}/getuser/${username}`);
-    console.log(response.data);
     return response.data;
   } catch (error: any) {
     if (error.response.status == 404) {
-      console.log(`User ${username} not found (404).`);
+      return error.reponse;
     } else {
       console.log(`Error on get request for ${username}:`, error.message);
     }
@@ -21,7 +20,7 @@ export async function GetUserDataByUsername(username?: string) {
 }
 
 //Check if username is already used
-export async function DoesUsernameAlreadyExist(username: String) {
+export async function DoesUsernameAlreadyExist(username: string) {
   const response = await axios.get(`${BaseUrl}/getuser/${username}`);
   if (response.status == 200) {
     return true;
@@ -31,11 +30,10 @@ export async function DoesUsernameAlreadyExist(username: String) {
 
 //Create User
 export async function CreateUser(username: string, password: string) {
-  // const isInvalidUsername = await DoesUsernameAlreadyExist(username);
-  // if (isInvalidUsername) {
-  //   console.log(`username ${username} already exists`);
-  //   return;
-  // }
+  const isInvalidUsername = await DoesUsernameAlreadyExist(username);
+  if (isInvalidUsername) {
+    return false;
+  }
   try {
     const NewUserData = {
       Username: username,
@@ -46,6 +44,7 @@ export async function CreateUser(username: string, password: string) {
       Friends: [],
     };
     await axios.post(`${BaseUrl}/adduser`, NewUserData);
+    return true;
   } catch {
     console.log("Post user failed");
   }

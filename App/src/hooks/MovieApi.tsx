@@ -5,10 +5,12 @@ import axios from "axios";
 //TODO
 //create functions for all calls necessary from the IMDb endpoint
 //create search by movie name
-export async function GetMoviebyMovieName(MovieName?: String) {
-    try {
-    MovieName?.replace(' ', '-');
-    const response = await axios.get(`http://www.omdbapi.com/?apikey=ec74cdeb&t=${MovieName}`);
+export async function GetMoviebyMovieName(MovieName: string) {
+  try {
+    MovieName?.replace(" ", "-");
+    const response = await axios.get(
+      `http://www.omdbapi.com/?apikey=ec74cdeb&t=${MovieName}`
+    );
     console.log(response.data);
     return response.data;
   } catch (error: any) {
@@ -20,9 +22,11 @@ export async function GetMoviebyMovieName(MovieName?: String) {
   }
 }
 //create search by movie id
-export async function GetMoviebyID(MovieID?: String) {
-    try {
-    const response = await axios.get(`http://www.omdbapi.com/?apikey=ec74cdeb&i=${MovieID}`);
+export async function GetMoviebyID(MovieID: string) {
+  try {
+    const response = await axios.get(
+      `http://www.omdbapi.com/?apikey=ec74cdeb&i=${MovieID}`
+    );
     console.log(response.data);
     return response.data;
   } catch (error: any) {
@@ -33,4 +37,3 @@ export async function GetMoviebyID(MovieID?: String) {
     }
   }
 }
-

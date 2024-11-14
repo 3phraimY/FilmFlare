@@ -1,9 +1,9 @@
-import React, { useState, FormEvent } from 'react';
-import { CreateUser } from '../hooks/UserApi';
-import"./SignUpPage.css";
+import React, { useState, FormEvent } from "react";
+import { CreateUser } from "../hooks/UserApi";
+import "./SignUpPage.css";
 const SignUpPage: React.FC = () => {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -14,15 +14,9 @@ const SignUpPage: React.FC = () => {
       setError("Username and password are required");
       return;
     }
-
-    try {
-
-      const response = await CreateUser(username, password);
-      console.log(response);
-      console.log("User created successfully");
-    } catch (err) {
-      setError("Failed to create user. Please try again.");
-      console.error("Error creating user:", err);
+    const isUserCreated = await CreateUser(username, password);
+    if (!isUserCreated) {
+      setError("Username already used");
     }
   };
 
