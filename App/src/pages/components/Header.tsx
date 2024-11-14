@@ -37,7 +37,7 @@ function Header() {
         setDisplayDropDownArrow(true);
         break;
       case "/signup":
-        setCurrentPageTitle("Setup");
+        setCurrentPageTitle("Signup");
         setDisplayDropDownArrow(false);
         break;
       default:
