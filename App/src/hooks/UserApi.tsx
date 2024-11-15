@@ -21,11 +21,14 @@ export async function GetUserDataByUsername(username: string) {
 
 //Check if username is already used
 export async function DoesUsernameAlreadyExist(username: string) {
-  const response = await axios.get(`${BaseUrl}/getuser/${username}`);
-  if (response.status == 200) {
-    return true;
+  try {
+    const response = await axios.get(`${BaseUrl}/getuser/${username}`);
+    if (response.status == 200) {
+      return true;
+    }
+  } catch {
+    return false;
   }
-  return false;
 }
 
 //Create User
