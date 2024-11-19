@@ -21,7 +21,7 @@ function App() {
           <Route path="/findmovies" element={<ErrorPage />} />
           <Route path="/friends" element={<ErrorPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="*" element={<SignInPage />} />
+          <Route path="/signin" element={<SignInPage />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>
