@@ -37,11 +37,11 @@ function Header() {
         setDisplayDropDownArrow(true);
         break;
       case "/signup":
-        setCurrentPageTitle("Signup");
+        setCurrentPageTitle("");
         setDisplayDropDownArrow(false);
         break;
       default:
-        setCurrentPageTitle("Login");
+        setCurrentPageTitle("");
         setDisplayDropDownArrow(false);
         break;
     }
