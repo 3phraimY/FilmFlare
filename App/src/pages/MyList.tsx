@@ -1,6 +1,7 @@
 import MovieTile from "./components/MovieTile";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserDataContext";
+import "./MyList.css";
 
 function MyList() {
   const context = useContext(UserContext);
@@ -14,9 +15,22 @@ function MyList() {
   }, []);
   return (
     <>
-      {user?.MyList.map((movie) => (
-        <MovieTile key={movie.IMDBid} movie={movie} />
-      ))}
+      <div className="title-wrapper">
+        <div className="add-movie">Add Movie</div>
+        <div className="recommended-title">Recommended for you</div>
+      </div>
+      <div className="movie-list-wrapper">
+        <div className="my-list-movies">
+          {user?.MyList.map((movie) => (
+            <MovieTile key={movie.IMDBid} movie={movie} />
+          ))}
+        </div>
+        <div className="reccomended-movies">
+          {user?.MyList.map((movie) => (
+            <MovieTile key={movie.IMDBid} movie={movie} />
+          ))}
+        </div>
+      </div>
     </>
   );
 }
