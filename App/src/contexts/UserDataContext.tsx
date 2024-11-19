@@ -1,14 +1,14 @@
 import React, { createContext, useState, ReactNode } from "react";
 import { GetUserDataByUsername } from "../hooks/UserApi";
 
-interface Movie {
+export interface Movie {
   IMDBid: string;
   Title: string;
   UserRating: number;
   MoviePosterURL: string;
 }
 
-interface Friend {
+export interface Friend {
   Username: string;
   Recommendations: Array<Movie>;
 }

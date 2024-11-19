@@ -2,6 +2,7 @@ import SignInPage from "./pages/SignInPage";
 import Header from "./pages/components/Header";
 import ErrorPage from "./pages/ErrorPage";
 import SignUpPage from "./pages/SignUpPage";
+import MyList from "./pages/MyList";
 import "./App.css";
 import { UserProvider } from "./contexts/UserDataContext";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
@@ -14,7 +15,7 @@ function App() {
       >
         <Header />
         <Routes>
-          <Route path="/mylist" element={<ErrorPage />} />
+          <Route path="/mylist" element={<MyList />} />
           <Route path="/towatch" element={<ErrorPage />} />
           <Route path="/favorites" element={<ErrorPage />} />
           <Route path="/findmovies" element={<ErrorPage />} />
