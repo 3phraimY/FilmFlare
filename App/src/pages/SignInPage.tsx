@@ -28,10 +28,11 @@ function SignInPage() {
   const [error, setError] = useState<string | null>(null); // State variable to hold any error messages
 
   // Function to handle sign in when the button is clicked
-  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
     //set the entered username to be the new user
-    fetchUserData(enteredUsername); //will throw an error through fetchUserData if needed
+    await fetchUserData(enteredUsername); //will throw an error through fetchUserData if needed
     // Check if entered username and password match the user data
     if (enteredPassword === user?.Password) {
       // Login successful
