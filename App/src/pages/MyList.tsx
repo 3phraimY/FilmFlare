@@ -1,6 +1,7 @@
 import MovieTile from "./components/MovieTile";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserDataContext";
+import Search from "./components/Search";
 import "./MyList.css";
 
 function MyList() {
@@ -9,12 +10,14 @@ function MyList() {
     return <div>Loading...</div>;
   }
   const { user, fetchUserData } = context;
+  const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
 
   useEffect(() => {
     fetchUserData("testUser");
   }, []);
   return (
     <>
+      {isSearchActive && <Search />}
       <div className="title-wrapper">
         <div className="add-movie">Add Movie</div>
         <div className="recommended-title">Recommended for you</div>
