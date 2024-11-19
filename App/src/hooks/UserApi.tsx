@@ -50,3 +50,39 @@ export async function CreateUser(username: string, password: string) {
     console.log("Post user failed");
   }
 }
+
+export const CreatedUserError = async (username: string, password: string) => {
+  try {
+    const response = await fetch('/api/create-user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return { success: false, error: errorData.message };
+    }
+
+    const data = await response.json();
+    return { success: true, userId: data.userId };
+  } catch (err) {
+    console.error("Error in CreateUser:", err);
+    throw err;
+  }
+};
+
+export const FetchUserData = async (userId: string) => {
+  try {
+    const response = await fetch(`/api/user/${userId}`);
+    if (!response.ok) throw new Error("Failed to fetch user data");
+
+    return await response.json();
+  } catch (err) {
+    console.error("Error fetching user data:", err);
+    throw err;
+  }
+};
+
