@@ -42,7 +42,7 @@ function Header() {
         break;
       default:
         setCurrentPageTitle("Login");
-        setDisplayDropDownArrow(true);
+        setDisplayDropDownArrow(false);
         break;
     }
   }, [currentPage]);

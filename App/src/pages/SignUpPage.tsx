@@ -1,13 +1,22 @@
-import React, { useState, FormEvent } from 'react';
-import { CreateUser, FetchUserData } from '../hooks/UserApi';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, FormEvent, useContext } from "react";
+import { UserContext } from "../contexts/UserDataContext";
+import { useNavigate } from "react-router-dom";
+import { CreateUser } from "../hooks/UserApi";
 import "./SignUpPage.css";
 
 const SignUpPage: React.FC = () => {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  const context = useContext(UserContext);
+
+  if (!context) {
+    return <div>Loading...</div>;
+  }
+
+  const { fetchUserData } = context;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,19 +29,13 @@ const SignUpPage: React.FC = () => {
 
     try {
       const response = await CreateUser(username, password);
-
-      if (response.success) { 
-        const userData = await FetchUserData(response.userId);
-        console.log("User created successfully", userData);
+      if (response) {
+        fetchUserData(username);
 
         // Navigate to MyList.tsx
-        navigate('/MyList');
+        navigate("/mylist");
       } else {
-        if (response.error === 'USER_EXISTS') {
-          setError("Username already exists. Please choose another.");
-        } else {
-          setError("Failed to create user. Please try again.");
-        }
+        setError("Username already exists. Please choose another.");
       }
     } catch (err) {
       setError("An error occurred. Please try again.");
@@ -73,10 +76,8 @@ const SignUpPage: React.FC = () => {
 
 export default SignUpPage;
 
-
-
-// on sucsess of signing up  set the user to the user just created. 
-// FecthUser data function should be called within UserApi.tsx 
-// navigate the user to MyList.tsx 
-// on failure  of signing up due to user already been made give an error. 
-// css styling for page. 
+// on sucsess of signing up  set the user to the user just created.
+// FecthUser data function should be called within UserApi.tsx
+// navigate the user to MyList.tsx
+// on failure  of signing up due to user already been made give an error.
+// css styling for page.
