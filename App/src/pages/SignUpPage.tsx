@@ -16,7 +16,7 @@ const SignUpPage: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  const { user, fetchUserData } = context;
+  const { fetchUserData } = context;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +31,6 @@ const SignUpPage: React.FC = () => {
       const response = await CreateUser(username, password);
       if (response) {
         fetchUserData(username);
-        console.log("User created successfully", user);
 
         // Navigate to MyList.tsx
         navigate("/mylist");
