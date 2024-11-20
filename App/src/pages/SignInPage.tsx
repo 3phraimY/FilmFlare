@@ -11,7 +11,7 @@ function SignInPage() {
     return <div>Loading...</div>;
   }
 
-  const { user, fetchUserData, setUser } = context;
+  const { user, fetchUserData } = context;
 
   // State variables to hold the entered username and password
   const [enteredUsername, setEnteredUsername] = useState<string>("");
