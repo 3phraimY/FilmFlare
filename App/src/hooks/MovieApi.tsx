@@ -13,6 +13,7 @@ export async function GetMoviebyMovieName(MovieName: string) {
     );
     console.log(response.data);
     return response.data;
+
   } catch (error: any) {
     if (error.response.status == 404) {
       console.log(`MovieName: ${MovieName} not found (404).`);
