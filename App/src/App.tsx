@@ -23,6 +23,7 @@ function App() {
           <Route path="/friends" element={<Friends />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/signin" element={<SignInPage />} />
+          <Route path="*" element={<SignInPage />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>

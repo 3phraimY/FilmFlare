@@ -1,16 +1,7 @@
-import { useContext, FormEvent, useState } from "react";
+import { useContext, FormEvent, useState, useEffect } from "react";
 import { UserContext } from "../contexts/UserDataContext";
 import { useNavigate } from "react-router-dom";
 import "./SignUpPage.css";
-
-//create onSubmit function take in enteredUsername
-//example on signUppage
-//set user = to entered Username
-//check if password matches username
-//if does navigate to my list page
-//if not error message display screen
-//look at conditional rendering
-//look at header componant
 
 function SignInPage() {
   const context = useContext(UserContext);
@@ -26,22 +17,38 @@ function SignInPage() {
   const [enteredUsername, setEnteredUsername] = useState<string>("");
   const [enteredPassword, setEnteredPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null); // State variable to hold any error messages
+  const [isLoading, setIsLoading] = useState(false); // State variable to track loading state
+  const [isFetched, setIsFetched] = useState(false); // State variable to track if user data is fetched
 
   // Function to handle sign in when the button is clicked
-  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
-    //set the entered username to be the new user
-    await fetchUserData(enteredUsername); //will throw an error through fetchUserData if needed
-    // Check if entered username and password match the user data
-    if (enteredPassword === user?.Password) {
-      // Login successful
-      navigate("/mylist"); //navigate to personal MyList homepage if login was successful
-    } else {
-      //Login Unsuccessful
-      setError("Username or password is incorrect"); // Set an error message if credentials don't match
+    setIsLoading(true);
+    setIsFetched(false);
+    try {
+      // Fetch user data
+      await fetchUserData(enteredUsername);
+      setIsFetched(true);
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      setError("An error occurred while fetching user data");
     }
   };
+
+  // Effect to check password after user data is fetched
+  useEffect(() => {
+    if (isFetched) {
+      if (enteredPassword === user?.Password) {
+        // Login successful
+        navigate("/mylist"); // Navigate to personal MyList homepage if login was successful
+      } else {
+        // Login unsuccessful
+        setError("Username or password is incorrect"); // Set an error message if credentials don't match
+      }
+    }
+  }, [isFetched]);
 
   return (
     <>
@@ -53,21 +60,23 @@ function SignInPage() {
             <label htmlFor="username">Username:</label>
             <input
               type="text"
-              value={enteredUsername} // Bind the input value to the enteredUsername state
+              value={enteredUsername}
               onChange={(e) => setEnteredUsername(e.target.value)} // Update state on input change
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password:</label>
+            <label>Password:</label>
             <input
               type="password"
-              value={enteredPassword} // Bind the input value to the enteredPassword state
+              value={enteredPassword}
               onChange={(e) => setEnteredPassword(e.target.value)} // Update state on input change
               required
             />
           </div>
-          <button type="submit">Login</button>
+          <button type="submit" className="btn" disabled={isLoading}>
+            {isLoading ? "Loading..." : "Login"}
+          </button>
         </form>
       </div>
     </>
