@@ -1,0 +1,37 @@
+.friends-border-wrapper {
+  display: flex;
+  background-color: #3d5a80;
+  border-radius: 15px 15px 15px 15px;
+  width: 80%;
+  min-height: 200px;
+  place-self: center;
+  margin-top: 40px;
+  padding: 10px;
+}
+.current-friends-wrapper {
+  background-color: #ee6c4d;
+  min-height: 500px;
+  height: 100%;
+  width: 47%;
+  border-radius: 15px 15px 15px 15px;
+  padding: 10px;
+  margin-right: 6%;
+}
+.current-friends-title {
+  place-self: center;
+}
+.current-friends-content {
+}
+.recommended-friends-wrapper {
+  background-color: #ee6c4d;
+  min-height: 500px;
+  height: 100%;
+  width: 47%;
+  border-radius: 15px 15px 15px 15px;
+  padding: 10px;
+}
+.recommended-friends-title {
+  place-self: center;
+}
+.recommended-friends-content {
+}
