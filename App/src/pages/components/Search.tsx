@@ -49,5 +49,46 @@ export function Search() {
   );
 }
 
-export default Search;
+const SearchTrigger = () => {
+  // Function to handle movie search
+  const searchMovies = () => {
+    console.log("Search movies triggered!");
+    // Add API call logic here
+
+    // like it is important to call API logic here.
+  };
+
+  return (
+    <div>
+      {/* Search Bar */}
+      <header className="search-bar">
+        <input
+          type="text"
+          placeholder="Search Movies..."
+          id="search-input"
+          aria-label="Search Movies"
+        />
+        <button onClick={searchMovies}>Search</button>
+      </header>
+
+      {/* Movie Grid */}
+      <main>
+        <section className="movie-grid">
+          {/* Example Movie Tiles */}
+          {Array.from({ length: 10 }, (_, index) => (
+            <div className="movie-tile" key={index}>
+              <img src="placeholder.jpg" alt={`Movie Poster ${index + 1}`} />
+              <div className="movie-details">
+                <h3 className="movie-title">Movie Title {index + 1}</h3>
+                <p className="movie-overview">Short description...</p>
+                <span className="user-rating">Rating: 8/10</span>
+              </div>
+            </div>
+          ))}
+        </section>
+      </main>
+    </div>
+  );
+};
+
 
