@@ -1,25 +1,35 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import MovieTile from "./MovieTile";
+import { Movie } from "../../contexts/UserDataContext";
+import { GetMoviebyMovieName } from "../../hooks/MovieApi";
 import "./Search.css";
-interface Movie {
-  id: string;
-  title: string;
-  poster: string;
-  overview: string;
-  IMDBid: string;
-  UserRating: number;
-  MoviePosterURL: string;
-}
 
 export function Search() {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [searchClick, setSearchClick] = useState<boolean>(false);
 
   useEffect(() => {
     async function loadMovies() {
       try {
-        const response = await fetch('YOUR_API_ENDPOINT');
+        const response = await GetMoviebyMovieName(searchInput);
+        console.log(response);
+        //need to try to map response into individual movies using the imported Movie Interface
+
         const data = await response.json();
-        const movieInterfaces = data.map((movie: Movie) => ({
+        const movieInterfaces = data.map((movie: Movie, index: number) => ({
+          //here is the full Movie interface defined in UserDataContext which is now imported
+          /*
+          Movie {
+          IMDBid: string;
+          Title: string;
+          UserRating: number;
+          MoviePosterURL: string;
+          }
+          */
+          //I haven't looked at what the response json looks like but will need to do something like this:
+          //const newMovie = {response.movie[index].id, response.movie[index].title, response.movie[index].posterURL}
+          // setMovies(movies.append(newMovie))
           id: movie.id,
           title: movie.title,
           poster: movie.poster,
@@ -35,7 +45,7 @@ export function Search() {
       }
     }
     loadMovies();
-  }, []);
+  }, [setSearchClick]);
 
   return (
     <div className="search-container">
@@ -74,6 +84,13 @@ const SearchTrigger = () => {
       {/* Movie Grid */}
       <main>
         <section className="movie-grid">
+          {/* Movie tiles will be using the Movie tile compent
+            once you have the movies array you can do a map fucntion and pass individual movies into components
+            this is the idea:
+            map(movie) => {
+            <MovieTile movie=movie/>
+            }
+          */}
           {/* Example Movie Tiles */}
           {Array.from({ length: 10 }, (_, index) => (
             <div className="movie-tile" key={index}>
@@ -90,5 +107,3 @@ const SearchTrigger = () => {
     </div>
   );
 };
-
-
