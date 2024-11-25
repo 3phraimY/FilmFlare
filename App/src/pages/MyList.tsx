@@ -41,7 +41,7 @@ function MyList() {
         </div>
         <div className="reccomended-movies">
           {user?.Friends.map((friend) =>
-            friend.Recommendations.map((recommendedMovie) => (
+            friend.Recommendations?.map((recommendedMovie) => (
               <div key={recommendedMovie.IMDBid}>
                 <MovieTile movie={recommendedMovie} />
                 <div>by: {friend.Username}</div>
