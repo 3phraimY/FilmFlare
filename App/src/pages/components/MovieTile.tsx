@@ -1,10 +1,16 @@
 import React from "react";
+import { useState } from "react";
 import { Movie } from "../../contexts/UserDataContext";
 import "./MovieTile.css";
+import  MovieDetails  from "../MovieDetails";
 
 const MovieTile: React.FC<{ movie: Movie }> = ({ movie }) => {
+  const [isMovieDetailsActive, setisMovieDetailsActive] = useState<boolean>(false);
   return (
     <>
+    {isMovieDetailsActive && <MovieDetails movie={movie} setActive = {setisMovieDetailsActive}/>}
+    <button onClick={() => setisMovieDetailsActive(true) }>
+
       <div className="movie-tile-wrapper">
         <div className="movie-title">{movie.Title}</div>
         <img src={movie.MoviePosterURL} className="movie-poster" />
@@ -12,6 +18,8 @@ const MovieTile: React.FC<{ movie: Movie }> = ({ movie }) => {
           <div className="star-rating">User Rating: {movie.UserRating}</div>
         )}
       </div>
+    </button>
+      
     </>
   );
 };
