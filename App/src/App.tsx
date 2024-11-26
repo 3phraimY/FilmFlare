@@ -8,7 +8,7 @@ import { UserProvider } from "./contexts/UserDataContext";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Favorites from "./pages/Favorites";
 import Friends from "./pages/Friends";
-
+import Search from "./pages/components/Search";
 function App() {
   return (
     <UserProvider>
@@ -23,6 +23,7 @@ function App() {
           <Route path="/friends" element={<Friends />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/signin" element={<SignInPage />} />
+          <Route path="/search" element={<Search />} />
           <Route path="*" element={<SignInPage />} />
         </Routes>
       </BrowserRouter>
