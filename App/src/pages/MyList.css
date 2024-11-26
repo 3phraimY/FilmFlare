@@ -1,13 +1,20 @@
 .title-wrapper {
   display: flex;
+  font-size: 25px;
 }
-.add-movie {
-  width: 70%;
+.add-movie-my-list {
+  width: 65%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
   text-align: center;
+  display: flex;
+  place-content: center;
 }
 .recommended-title {
-  width: 30%;
+  width: 27.5%;
+  margin-right: 2.5%;
   text-align: center;
+  align-content: center;
 }
 .movie-list-wrapper {
   display: flex;
@@ -19,6 +26,7 @@
   margin-right: 2.5%;
   border-radius: 15px 15px 15px 15px;
   padding: 10px;
+  display: flex;
 }
 .reccomended-movies {
   background-color: #ee6c4d;

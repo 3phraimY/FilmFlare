@@ -6,6 +6,17 @@ import { Movie, Friend } from "../contexts/UserDataContext";
 
 const BaseUrl = "http://localhost:3000/api";
 
+// Get all users
+export async function GetAllUsers() {
+  try {
+    const response = await axios.get(`${BaseUrl}/alluserdata`);
+    return response.data;
+  } catch (error: any) {
+    console.error("Error fetching all users:", error.message);
+    throw error;
+  }
+}
+
 //Seach for user by username
 export async function GetUserDataByUsername(username: string) {
   try {
@@ -179,38 +190,75 @@ export async function DeleteMovieFromList(
   }
 }
 
-// Add friend to user's friend list
+// Add friend to both users friend list
 export async function AddFriend(username: string, friendUsername: string) {
   try {
     // Fetch the current user data using the existing function
     const user = await GetUserDataByUsername(username);
+    const friendUser = await GetUserDataByUsername(friendUsername);
 
     if (!user) {
-      throw new Error(`User with username ${username} not found`);
+      return `User with username ${username} not found`;
     }
 
-    // Check if the friend is already in the list
-    if (user.Friends.includes(friendUsername)) {
-      throw new Error(`User ${friendUsername} is already a friend`);
+    if (!friendUser) {
+      return `User with username ${friendUsername} not found`;
     }
 
-    // Add the new friend to the existing list
-    const updatedFriends = [...user.Friends, friendUsername];
+    // Check if the friend is already in the user's friend list
+    if (
+      user.Friends.some((friend: Friend) => friend.Username === friendUsername)
+    ) {
+      return `User ${friendUsername} is already a friend`;
+    }
 
-    // Prepare the update data
-    const updateData = {
-      Friends: updatedFriends,
+    // Check if the user is already in the friend's friend list
+    if (
+      friendUser.Friends.some((friend: Friend) => friend.Username === username)
+    ) {
+      return `User ${username} is already a friend of ${friendUsername}`;
+    }
+
+    // Create new friend objects
+    const newFriendForUser: Friend = {
+      Username: friendUsername,
+      Recommendations: [], // Initialize with an empty array
     };
 
-    // Send the updated list to the server
-    const response = await axios.patch(
+    const newFriendForFriendUser: Friend = {
+      Username: username,
+      Recommendations: [], // Initialize with an empty array
+    };
+
+    // Add the new friends to the respective lists
+    const updatedUserFriends = [...user.Friends, newFriendForUser];
+    const updatedFriendUserFriends = [
+      ...friendUser.Friends,
+      newFriendForFriendUser,
+    ];
+
+    // Prepare the update data
+    const updateUserFriendsData = {
+      Friends: updatedUserFriends,
+    };
+
+    const updateFriendUserFriendsData = {
+      Friends: updatedFriendUserFriends,
+    };
+
+    // Send the updated lists to the server
+    await axios.patch(
       `${BaseUrl}/updateuser/${username}`,
-      updateData
+      updateUserFriendsData
     );
-    return response.data;
+    await axios.patch(
+      `${BaseUrl}/updateuser/${friendUsername}`,
+      updateFriendUserFriendsData
+    );
+
+    return "success";
   } catch (error: any) {
-    console.error(`Error adding friend for ${username}:`, error.message);
-    throw error;
+    return `Error adding friend for ${username}: ${error.message}`;
   }
 }
 
