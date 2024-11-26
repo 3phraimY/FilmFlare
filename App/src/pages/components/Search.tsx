@@ -15,17 +15,18 @@ export function Search() {
         try {
           const response = await GetMoviebyMovieName(searchInput);
           response.Search.map((movie: any) => {
-            //create a new movie, define object and manually set the properties 
+            // Create a new movie, define object and manually set the properties
             console.log(movie);
-            const newMovie: Movie {
+            const newMovie: Movie = {
               IMDBid: movie.imdbID as string,
               MoviePosterURL: movie.Poster as string,
               Title: movie.Title as string,
               UserRating: 0,
             };
-            // add the new movie to the movies array
-            setMovies()
+            // Add the new movie to the movies array
+            setMovies(prevMovies => [...prevMovies, newMovie]);
           });
+
         } catch (error) {
           console.error("Error fetching movies:", error);
         }
