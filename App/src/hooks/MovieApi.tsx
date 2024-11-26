@@ -9,7 +9,7 @@ export async function GetMoviebyMovieName(MovieName: string) {
   try {
     MovieName?.replace(" ", "-");
     const response = await axios.get(
-      `http://www.omdbapi.com/?apikey=ec74cdeb&t=${MovieName}`
+      `http://www.omdbapi.com/?apikey=ec74cdeb&s=${MovieName}`
     );
     console.log(response.data);
     return response.data;
@@ -22,6 +22,7 @@ export async function GetMoviebyMovieName(MovieName: string) {
     }
   }
 }
+
 //create search by movie id
 export async function GetMoviebyID(MovieID: string) {
   try {

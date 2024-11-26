@@ -118,7 +118,7 @@ take the text input and call the movie API function.
 }
 
 .search-bar button:hover {
-  background-color: #ff4b2b; /* Slightly darker shade on hover */
+  background-color: #b72910; /* Slightly darker shade on hover */
 }
 
 /* Updated Movie Grid for 10 tiles */
