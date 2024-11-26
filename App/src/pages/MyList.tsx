@@ -1,7 +1,7 @@
 import MovieTile from "./components/MovieTile";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserDataContext";
-import Search from "./components/Search";
 import "./MyList.css";
 
 function MyList() {
@@ -9,17 +9,28 @@ function MyList() {
   if (!context) {
     return <div>Loading...</div>;
   }
-  const { user, fetchUserData } = context;
-  const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
-
-  useEffect(() => {
-    fetchUserData("testUser");
-  }, []);
+  const { user } = context;
+  const navigate = useNavigate();
   return (
     <>
-      {isSearchActive && <Search />}
       <div className="title-wrapper">
-        <div className="add-movie">Add Movie</div>
+        <div className="add-movie-my-list">
+          <button
+            onClick={() => navigate("/search")}
+            style={{ display: "flex" }}
+          >
+            <div className="add-movie-text" style={{ alignSelf: "center" }}>
+              Add Movie
+            </div>
+            <img
+              style={{ alignSelf: "center", marginLeft: "5px" }}
+              height={25}
+              width={25}
+              src="https://img.icons8.com/?size=100&id=114100&format=png&color=000000"
+            />
+          </button>
+        </div>
+
         <div className="recommended-title">Recommended for you</div>
       </div>
       <div className="movie-list-wrapper">
@@ -29,9 +40,14 @@ function MyList() {
           ))}
         </div>
         <div className="reccomended-movies">
-          {user?.MyList.map((movie) => (
-            <MovieTile key={movie.IMDBid} movie={movie} />
-          ))}
+          {user?.Friends.map((friend) =>
+            friend.Recommendations?.map((recommendedMovie) => (
+              <div key={recommendedMovie.IMDBid}>
+                <MovieTile movie={recommendedMovie} />
+                <div>by: {friend.Username}</div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </>
