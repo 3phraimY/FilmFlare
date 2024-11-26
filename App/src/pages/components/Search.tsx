@@ -8,24 +8,20 @@ export function Search() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [searchInput, setSearchInput] = useState<string>("");
   const [searchClick, setSearchClick] = useState<boolean>(false);
-  
+
   useEffect(() => {
     const fetchMovies = async () => {
       if (searchInput) {
         try {
           const response = await GetMoviebyMovieName(searchInput);
-          response.Search.map((movie: any) => {
-            //create a new movie, define object and manually set the properties 
-            console.log(movie);
-            const newMovie: Movie {
-              IMDBid: movie.imdbID as string,
-              MoviePosterURL: movie.Poster as string,
-              Title: movie.Title as string,
-              UserRating: 0,
-            };
-            // add the new movie to the movies array
-            setMovies()
-          });
+          const newMovies: Movie[] = response.Search.map((movie: any) => ({
+            IMDBid: movie.imdbID || "",
+            MoviePosterURL: movie.Poster || "",
+            Title: movie.Title || "",
+            UserRating: 0,
+          }));
+          // Clear the movies array and add new movies
+          setMovies(newMovies);
         } catch (error) {
           console.error("Error fetching movies:", error);
         }
@@ -33,7 +29,6 @@ export function Search() {
     };
     fetchMovies();
   }, [searchClick]);
-  
 
   return (
     <div className="search-container">
@@ -45,7 +40,7 @@ export function Search() {
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
       />
-      
+
       {/* Button to trigger the search */}
       <button
         className="search-button"
@@ -53,12 +48,13 @@ export function Search() {
       >
         Search
       </button>
-  
+
       {/* Display movies */}
-      
+      {movies.map((movie) => (
+        <MovieTile movie={movie} key={movie.IMDBid} />
+      ))}
     </div>
   );
-  
 }
 export default Search;
 
@@ -73,6 +69,6 @@ export default Search;
             IMDBid: string;
           }
           */
-          //I haven't looked at what the response json looks like but will need to do something like this:
-          //const newMovie = {response.movie[index].id, response.movie[index].title, response.movie[index].posterURL}
-          // setMovies(movies.append(newMovie))
+//I haven't looked at what the response json looks like but will need to do something like this:
+//const newMovie = {response.movie[index].id, response.movie[index].title, response.movie[index].posterURL}
+// setMovies(movies.append(newMovie))

@@ -28,7 +28,7 @@ function Header() {
         setCurrentPageTitle("Favorites");
         setDisplayDropDownArrow(true);
         break;
-      case "/findmovies":
+      case "/search":
         setCurrentPageTitle("Find Movies");
         setDisplayDropDownArrow(true);
         break;
@@ -99,7 +99,7 @@ function Header() {
             <div className={getMenuItemClass("Favorites")}>Favorites</div>
           </button>
           <button
-            onClick={() => handleNavigate("/findmovies")}
+            onClick={() => handleNavigate("/search")}
             className="menu-item-button"
           >
             <div className={getMenuItemClass("Find Movies")}>Find Movies</div>
