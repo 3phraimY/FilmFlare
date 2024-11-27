@@ -1,109 +1,74 @@
-/* General resets */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #2f3b4f; /* Dark navy background */
-    color: #e0fbfc; /* Light text for contrast */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #2f3b4f; /* Dark navy background */
+  color: #e0fbfc; /* Light text for contrast */
+}
+
+.search-container {
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(45deg, #3d5a80, #ee6c4d, #98c1d9, #ee6c4d);
+  background-size: 300% 300%;
+  border-radius: 10px;
+  max-width: 1200px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: flareAnimation 6s ease infinite;
+}
+
+@keyframes flareAnimation {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  .search-container {
-    padding: 20px;
-    text-align: center;
-    background-color: #3d5a80; /* Muted blue for container background */
-    border-radius: 10px;
-    max-width: 1200px;
-    margin: 20px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  50% {
+    background-position: 100% 50%;
   }
-  
-  .search-container h1 {
-    margin-bottom: 20px;
-    color: #e0fbfc; /* Light cyan for the title */
-    font-size: 2.5rem;
+  100% {
+    background-position: 0% 50%;
   }
-  /*
-Button for searching 
-take the text input and call the movie API function. 
-  */
-  .movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 10px;
-  }
-  
-  /* Individual Movie Tiles */
-  .movie-tile {
-    background-color: #98c1d9; /* Light blue for movie tiles */
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .movie-tile:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  .movie-tile img {
-    width: 100%;
-    height: auto;
-    border-bottom: 4px solid #ee6c4d; /* Accent color for separation */
-  }
-  
-  .movie-tile .movie-details {
-    padding: 10px;
-  }
-  
-  .movie-tile .movie-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #293241; /* Contrast text */
-    margin-bottom: 5px;
-  }
-  
-  .movie-tile .movie-overview {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #3d5a80; /* Secondary text color */
-  }
-  
-  .movie-tile:hover {
-    transform: translateY(-5px) scale(1.1); /* Move up and grow */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  .movie-tile .user-rating {
-    font-weight: bold;
-    color: #ee6c4d; /* Highlight for ratings */
-    margin-top: 5px;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 600px) {
-    .movie-grid {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-  }
-  /* Search bar styling */
+}
+
+.search-container h1 {
+  margin-bottom: 20px;
+  color: #e0fbfc; /* Light cyan for the title */
+  font-size: 2.5rem;
+}
+
 .search-bar {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
-  background-color: #3d5a80; /* Muted blue for the search bar */
+  background: linear-gradient(90deg, #98c1d9, #ee6c4d);
+  background-size: 200% 200%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  animation: searchBarAnimation 4s ease infinite;
+}
+
+@keyframes searchBarAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 .search-bar input {
   width: 60%;
   padding: 10px;
   font-size: 1rem;
-  border: none;
+  border: 2px solid #ee6c4d; /* Border matches accent color */
   border-radius: 5px;
   margin-right: 10px;
   outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+  border-color: #98c1d9; /* Change border color when focused */
 }
 
 .search-bar button {
@@ -114,14 +79,15 @@ take the text input and call the movie API function.
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .search-bar button:hover {
   background-color: #b72910; /* Slightly darker shade on hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
-/* Updated Movie Grid for 10 tiles */
+/* Movie Grid Styling */
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* Fixed 5 columns */
@@ -131,6 +97,51 @@ take the text input and call the movie API function.
   padding: 10px;
 }
 
+.movie-tile {
+  background-color: #2f3b4f; /* Dark navy to contrast with light frame */
+  border: 2px solid #ee6c4d; /* Accent color border */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-tile:hover {
+  transform: translateY(-5px) scale(1.05); /* Move up and grow slightly */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.movie-tile img {
+  width: 100%;
+  height: auto;
+  border-bottom: 4px solid #98c1d9; /* Light blue separation */
+}
+
+.movie-tile .movie-details {
+  padding: 10px;
+  text-align: center;
+}
+
+.movie-tile .movie-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e0fbfc; /* Light text for dark background */
+  margin-bottom: 5px;
+}
+
+.movie-tile .movie-overview {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #98c1d9; /* Secondary text color */
+}
+
+.movie-tile .user-rating {
+  font-weight: bold;
+  color: #ee6c4d; /* Highlight for ratings */
+  margin-top: 5px;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .movie-grid {
     grid-template-columns: repeat(2, 1fr); /* Adjust to 2 columns on smaller screens */
