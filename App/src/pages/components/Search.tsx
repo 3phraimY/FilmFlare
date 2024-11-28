@@ -14,21 +14,7 @@ export function Search() {
       if (searchInput) {
         try {
           const response = await GetMoviebyMovieName(searchInput);
-<<<<<<< HEAD
-          response.Search.map((movie: any) => {
-            // Create a new movie, define object and manually set the properties
-            console.log(movie);
-            const newMovie: Movie = {
-              IMDBid: movie.imdbID as string,
-              MoviePosterURL: movie.Poster as string,
-              Title: movie.Title as string,
-              UserRating: 0,
-            };
-            // Add the new movie to the movies array
-            setMovies(prevMovies => [...prevMovies, newMovie]);
-          });
 
-=======
           const newMovies: Movie[] = response.Search.map((movie: any) => ({
             IMDBid: movie.imdbID || "",
             MoviePosterURL: movie.Poster || "",
@@ -37,7 +23,6 @@ export function Search() {
           }));
           // Clear the movies array and add new movies
           setMovies(newMovies);
->>>>>>> origin/main
         } catch (error) {
           console.error("Error fetching movies:", error);
         }
@@ -45,6 +30,7 @@ export function Search() {
     };
     fetchMovies();
   }, [searchClick]);
+
 
   return (
     <div className="search-container">
