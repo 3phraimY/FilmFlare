@@ -1,7 +1,8 @@
 import React from "react";
-import { useState } from "react";
-import { Movie } from "../../contexts/UserDataContext";
 import "./MovieTile.css";
+import "./Search.css";
+import { useState } from "react";
+import { Movie, UserContext } from "../../contexts/UserDataContext";
 import  MovieDetails  from "../MovieDetails";
 
 const MovieTile: React.FC<{ movie: Movie }> = ({ movie }) => {
@@ -24,4 +25,21 @@ const MovieTile: React.FC<{ movie: Movie }> = ({ movie }) => {
   );
 };
 
-export default MovieTile;
+interface MovieProps {
+  movie: {
+    IMDBid: string;
+    MoviePosterURL: string;
+    Title: string;
+  };
+}
+
+function Movietile({ movie }: MovieProps) {
+  return (
+    <div className="movie-tile">
+      <img src={movie.MoviePosterURL} alt={movie.Title} />
+      <div className="movie-details">
+        <h3 className="movie-title">{movie.Title}</h3>
+      </div>
+    </div>
+  );
+}
