@@ -1,8 +1,9 @@
+
 import "./Friends.css";
 import { useContext, useEffect, useState } from "react";
 import userIcon from "../assets/user-icon.png";
 import addUserIcon from "../assets/add-user.png";
-import { AddFriend, GetAllUsers } from "../hooks/UserApi";
+import { AddFriend, GetAllUsers, RemoveFriend } from "../hooks/UserApi"; // Assuming you've created a RemoveFriend API function
 import { UserContext } from "../contexts/UserDataContext";
 
 function Friends() {
@@ -34,6 +35,16 @@ function Friends() {
     const response = await AddFriend(user!.Username, username);
     if (response !== "success") {
       setSearchError("error");
+    } else {
+      setSearchError(null);
+      refreshUserData();
+    }
+  };
+
+  const handleRemoveFriend = async (username: string) => {
+    const response = await RemoveFriend(user!.Username, username);
+    if (response !== "success") {
+      setSearchError("Error removing friend");
     } else {
       setSearchError(null);
       refreshUserData();
@@ -115,6 +126,12 @@ function Friends() {
                   style={{ marginRight: "10px" }}
                 />
                 {friend.Username}
+                <button
+                  style={{ backgroundColor: "#ee6c4d", marginLeft: "10px" }}
+                  onClick={() => handleRemoveFriend(friend.Username)}
+                >
+                  Unfriend
+                </button>
               </div>
             ))}
           </div>
@@ -146,3 +163,5 @@ function Friends() {
 }
 
 export default Friends;
+
+

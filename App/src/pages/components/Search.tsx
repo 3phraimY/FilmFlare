@@ -14,6 +14,7 @@ export function Search() {
       if (searchInput) {
         try {
           const response = await GetMoviebyMovieName(searchInput);
+
           const newMovies: Movie[] = response.Search.map((movie: any) => ({
             IMDBid: movie.imdbID || "",
             MoviePosterURL: movie.Poster || "",
@@ -33,42 +34,28 @@ export function Search() {
   return (
     <div className="search-container">
       {/* Input field to modify the search input */}
-      <input
-        type="text"
-        className="search-input"
-        placeholder="Search for a movie..."
-        value={searchInput}
-        onChange={(e) => setSearchInput(e.target.value)}
-      />
-
-      {/* Button to trigger the search */}
-      <button
-        className="search-button"
-        onClick={() => setSearchClick(!searchClick)}
-      >
-        Search
-      </button>
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search for a movie..."
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+        <button onClick={() => setSearchClick(!searchClick)}>Search</button>
+      </div>
 
       {/* Display movies */}
-      {movies.map((movie) => (
-        <MovieTile movie={movie} key={movie.IMDBid} />
-      ))}
+      <div className="movie-grid">
+        {movies.length > 0 ? (
+          movies.map((movie) => (
+            <MovieTile movie={movie} key={movie.IMDBid} />
+          ))
+        ) : (
+          <p className="no-movies-message">No movies found. Try searching for something else.</p>
+        )}
+      </div>
     </div>
   );
 }
-export default Search;
 
-/*
-        parsing the JSON to get the responses. 
-          //here is the full Movie interface defined in UserDataContext which is now imported
-          /*
-          Movie {
-            MoviePosterURL: string;
-            Title: string;
-            UserRating: number;
-            IMDBid: string;
-          }
-          */
-//I haven't looked at what the response json looks like but will need to do something like this:
-//const newMovie = {response.movie[index].id, response.movie[index].title, response.movie[index].posterURL}
-// setMovies(movies.append(newMovie))
+export default Search;
