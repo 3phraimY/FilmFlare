@@ -28,7 +28,7 @@ function ToWatch() {
       </div>
       <div className="movie-list">
         {user?.ToWatch.map((movie) => (
-          <MovieTile movie={movie} />
+          <MovieTile key={movie.IMDBid} movie={movie} />
         ))}
       </div>
     </>

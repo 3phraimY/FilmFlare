@@ -9,4 +9,41 @@
 }
 .movie-title {
   text-align: center;
+  font-size: 13px;
+  height: 30px;
+  overflow: hidden;
+  color: #ffffff;
+  padding-bottom: 5px;
+  box-sizing: border-box;
+}
+
+.movie-tile {
+  background-color: #ffffff; /* White for the movie tile background */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-tile img {
+  width: 100%;
+  height: auto;
+  border-bottom: 2px solid #98c1d9;
+}
+
+.movie-tile .movie-details {
+  padding: 10px;
+  text-align: center;
+}
+
+.movie-tile .movie-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #2f3b4f;
+}
+
+.movie-tile-button {
+  background-color: transparent;
+  width: 172px;
+  height: 300px;
 }
