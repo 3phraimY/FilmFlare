@@ -28,7 +28,7 @@ function Favorites() {
       </div>
       <div className="movie-list">
         {user?.MyFavorites.map((movie) => (
-          <MovieTile movie={movie} />
+          <MovieTile key={movie.IMDBid} movie={movie} />
         ))}
       </div>
     </>
