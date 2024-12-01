@@ -28,13 +28,7 @@ const FriendSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    Recommendations: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Movie",
-        required: true,
-      },
-    ],
+    Recommendations: [MovieSchema],
   },
   { _id: false }
 );

@@ -294,7 +294,6 @@ export async function RemoveFriend(username: string, friendUsername: string) {
   }
 }
 
-// Add movie to a friend's recommendations list
 export async function AddMovieToFriendRecommendations(
   username: string,
   friendUsername: string,
@@ -304,47 +303,46 @@ export async function AddMovieToFriendRecommendations(
   UserRating?: number // Optional parameter
 ) {
   try {
-    // Fetch the current user data using the existing function
-    const user = await GetUserDataByUsername(username);
+    // Fetch the friend's data using the existing function
+    const friendUser = await GetUserDataByUsername(friendUsername);
 
-    if (!user) {
-      throw new Error(`User with username ${username} not found`);
+    if (!friendUser) {
+      throw new Error(`User with username ${friendUsername} not found`);
     }
 
-    // Find the friend in the user's friends list
-    const friend = user.Friends.find(
-      (f: Friend) => f.Username === friendUsername
+    // Find the user in the friend's friends list
+    const userIndex = friendUser.Friends.findIndex(
+      (f: Friend) => f.Username === username
     );
 
-    if (!friend) {
-      throw new Error(`Friend with username ${friendUsername} not found`);
+    if (userIndex === -1) {
+      throw new Error(
+        `Friend with username ${username} not found in ${friendUsername}'s friends list`
+      );
     }
 
     // Create the new movie object with UserRating defaulting to 0 if not provided
-    const newMovie: Movie = {
+    const newMovie = {
       IMDBid,
       Title,
       MoviePosterURL,
       UserRating: UserRating ?? 0, // Default to 0 if UserRating is undefined
     };
 
-    // Add the new movie to the friend's recommendations list
-    const updatedRecommendations = [...friend.Recommendations, newMovie];
+    // Add the new movie to the user's recommendations list in the friend's data
+    friendUser.Friends[userIndex].Recommendations.push(newMovie);
 
     // Prepare the update data
     const updateData = {
-      Friends: user.Friends.map((f: Friend) =>
-        f.Username === friendUsername
-          ? { ...f, Recommendations: updatedRecommendations }
-          : f
-      ),
+      Friends: friendUser.Friends,
     };
 
     // Send the updated list to the server
     const response = await axios.patch(
-      `${BaseUrl}/updateuser/${username}`,
+      `${BaseUrl}/updateuser/${friendUsername}`,
       updateData
     );
+
     return response.data;
   } catch (error: any) {
     console.error(
