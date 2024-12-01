@@ -1,4 +1,3 @@
-
 import "./Friends.css";
 import { useContext, useEffect, useState } from "react";
 import userIcon from "../assets/user-icon.png";
@@ -163,5 +162,3 @@ function Friends() {
 }
 
 export default Friends;
-
-
