@@ -42,7 +42,7 @@ function Friends() {
 
   const handleRemoveFriend = async (username: string) => {
     const response = await RemoveFriend(user!.Username, username);
-    if (response !== "success") {
+    if (!response) {
       setSearchError("Error removing friend");
     } else {
       setSearchError(null);

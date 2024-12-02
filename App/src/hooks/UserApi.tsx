@@ -265,32 +265,56 @@ export async function AddFriend(username: string, friendUsername: string) {
 // Remove friend from user's friend list
 export async function RemoveFriend(username: string, friendUsername: string) {
   try {
-    // Fetch the current user data using the existing function
+    // Fetch the current user data
     const user = await GetUserDataByUsername(username);
 
     if (!user) {
       throw new Error(`User with username ${username} not found`);
     }
 
-    // Remove the friend from the existing list
-    const updatedFriends = user.Friends.filter(
-      (friend: string) => friend !== friendUsername
+    // Remove the friend from the current user's friends list
+    const updatedUserFriends = user.Friends.filter(
+      (friend: { Username: string }) => friend.Username !== friendUsername
     );
 
-    // Prepare the update data
-    const updateData = {
-      Friends: updatedFriends,
+    // Prepare the update data for the current user
+    const updateUserData = {
+      Friends: updatedUserFriends,
     };
 
-    // Send the updated list to the server
-    const response = await axios.patch(
+    // Send the updated list to the server for the current user
+    const userResponse = await axios.patch(
       `${BaseUrl}/updateuser/${username}`,
-      updateData
+      updateUserData
     );
-    return response.data;
+
+    // Fetch the friend's data
+    const friendUser = await GetUserDataByUsername(friendUsername);
+
+    if (!friendUser) {
+      throw new Error(`User with username ${friendUsername} not found`);
+    }
+
+    // Remove the current user from the friend's friends list
+    const updatedFriendFriends = friendUser.Friends.filter(
+      (friend: { Username: string }) => friend.Username !== username
+    );
+
+    // Prepare the update data for the friend
+    const updateFriendData = {
+      Friends: updatedFriendFriends,
+    };
+
+    // Send the updated list to the server for the friend
+    const friendResponse = await axios.patch(
+      `${BaseUrl}/updateuser/${friendUsername}`,
+      updateFriendData
+    );
+
+    return true;
   } catch (error: any) {
     console.error(`Error removing friend for ${username}:`, error.message);
-    throw error;
+    return false;
   }
 }
 
