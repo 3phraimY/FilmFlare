@@ -11,7 +11,7 @@ body {
   background: linear-gradient(45deg, #3d5a80, #ee6c4d, #98c1d9, #3d5a80);
   background-size: 300% 300%;
   border-radius: 10px;
-  max-width: 1200px;
+  width: 90%;
   margin: 20px auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   /* animation: sharedAnimation 6s ease infinite reverse; */
@@ -50,8 +50,7 @@ body {
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  width: 959.35px;
+  width: 90%;
   margin: 20px auto;
   padding: 20px;
   background: linear-gradient(45deg, #ee6c4d, #3d5a80, #98c1d9, #ee6c4d);
