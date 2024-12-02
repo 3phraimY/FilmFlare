@@ -239,11 +239,17 @@ export async function AddFriend(username: string, friendUsername: string) {
 
     // Prepare the update data
     const updateUserFriendsData = {
-      Friends: updatedUserFriends,
+      Friends: updatedUserFriends.map((friend: Friend) => ({
+        Username: friend.Username,
+        Recommendations: friend.Recommendations || [],
+      })),
     };
 
     const updateFriendUserFriendsData = {
-      Friends: updatedFriendUserFriends,
+      Friends: updatedFriendUserFriends.map((friend: Friend) => ({
+        Username: friend.Username,
+        Recommendations: friend.Recommendations || [],
+      })),
     };
 
     // Send the updated lists to the server
