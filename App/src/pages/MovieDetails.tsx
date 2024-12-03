@@ -23,6 +23,9 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
   const [response, setResponse] = useState<any>();
 
   useEffect(() => {
+    refreshUserData();
+  }, []);
+  useEffect(() => {
     const fetchMovieData = async () => {
       try {
         const response = await GetMoviebyID(movie.IMDBid);
