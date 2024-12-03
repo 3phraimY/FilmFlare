@@ -1,7 +1,7 @@
 import MovieTile from "./components/MovieTile";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../contexts/UserDataContext";
+import { UserContext, Movie } from "../contexts/UserDataContext";
 import "./MyList.css";
 
 function MyList() {
@@ -11,6 +11,40 @@ function MyList() {
   }
   const { user } = context;
   const navigate = useNavigate();
+
+  interface RecommendedMovie {
+    IMDBid: any;
+    movie: Movie;
+    count: number;
+    recommenders: string[];
+    // Add other properties from the movie object
+  }
+  const [recommendations, setRecommendations] = useState<
+    Record<string, RecommendedMovie>
+  >({});
+
+  useEffect(() => {
+    const movieCounts: Record<string, RecommendedMovie> = {};
+
+    user?.Friends.forEach((friend) => {
+      friend.Recommendations?.forEach((movie) => {
+        if (movieCounts[movie.IMDBid]) {
+          movieCounts[movie.IMDBid].count += 1;
+          movieCounts[movie.IMDBid].recommenders.push(friend.Username);
+        } else {
+          movieCounts[movie.IMDBid] = {
+            IMDBid: movie.IMDBid,
+            movie: movie,
+            count: 1,
+            recommenders: [friend.Username],
+          };
+        }
+      });
+    });
+
+    setRecommendations(movieCounts);
+  }, [user]);
+
   return (
     <>
       <div className="title-wrapper">
@@ -30,9 +64,9 @@ function MyList() {
             />
           </button>
         </div>
-
         <div className="recommended-title">Recommended for you</div>
       </div>
+
       <div className="movie-list-wrapper">
         <div className="my-list-movies">
           {user?.MyList.map((movie) => (
@@ -40,20 +74,62 @@ function MyList() {
           ))}
         </div>
         <div className="reccomended-movies">
-          {user?.Friends.map((friend) =>
-            friend.Recommendations?.map((recommendedMovie) => (
-              <div key={recommendedMovie.IMDBid}>
-                <MovieTile
-                  key={recommendedMovie.IMDBid}
-                  movie={recommendedMovie}
-                />
-                <div>by: {friend.Username}</div>
+          {Object.values(recommendations).map((recommendedMovie) => (
+            <div key={recommendedMovie.IMDBid} className="movie-recommendation">
+              <MovieTile movie={recommendedMovie.movie} />
+              <div>
+                Recommended by {recommendedMovie.count}{" "}
+                {recommendedMovie.count > 1 ? "friends" : "friend"}:{" "}
+                {recommendedMovie.recommenders.join(", ")}
               </div>
-            ))
-          )}
+              <div className="star-rating">
+                <label>
+                  <input
+                    type="radio"
+                    name={`rating-${recommendedMovie.IMDBid}`}
+                    value="1"
+                  />{" "}
+                  1
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name={`rating-${recommendedMovie.IMDBid}`}
+                    value="2"
+                  />{" "}
+                  2
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name={`rating-${recommendedMovie.IMDBid}`}
+                    value="3"
+                  />{" "}
+                  3
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name={`rating-${recommendedMovie.IMDBid}`}
+                    value="4"
+                  />{" "}
+                  4
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name={`rating-${recommendedMovie.IMDBid}`}
+                    value="5"
+                  />{" "}
+                  5
+                </label>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </>
   );
 }
+
 export default MyList;
