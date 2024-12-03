@@ -20,6 +20,10 @@ function Friends() {
   }
   const { user, refreshUserData } = context;
 
+  useEffect(() => {
+    refreshUserData();
+  }, []);
+
   const handleSearch = async () => {
     const addFriendMessage = await AddFriend(user!.Username, searchText);
     if (addFriendMessage !== "success") {
