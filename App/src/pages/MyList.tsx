@@ -76,6 +76,9 @@ function MyList() {
         <div className="reccomended-movies">
           {Object.values(recommendations).map((recommendedMovie) => (
             <div key={recommendedMovie.IMDBid} className="movie-recommendation">
+              {/* here should be created an array of RecommendedMovies, currently this is just displaying the movies in the same way as before */}
+              {/* each movie we iterate through should either append a new movie or add a rating and username to an existing rrecommendation */}
+              {/* after this array is created, should map through the array of MovieRecommendations and override the movie's user rating with the average user rating of the those who recommended and display a movie tile, followed by the recommneded by div */}
               <MovieTile movie={recommendedMovie.movie} />
               <div>
                 Recommended by {recommendedMovie.count}{" "}
