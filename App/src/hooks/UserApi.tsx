@@ -119,7 +119,6 @@ export async function AddMovieToList(
 // Update movie rating in a specific list
 export async function UpdateMovieRating(
   username: string,
-  listName: ListName,
   IMDBid: string,
   newRating: number
 ) {
@@ -130,17 +129,33 @@ export async function UpdateMovieRating(
       throw new Error(`User with username ${username} not found`);
     }
 
-    // Find the specific movie in the list and update its rating
-    const updatedList = user[listName].map((movie: Movie) =>
-      movie.IMDBid === IMDBid ? { ...movie, UserRating: newRating } : movie
-    );
+    // Define the lists to search through
+    const listsToUpdate = ["MyList", "MyFavorites", "ToWatch"];
+
+    // Iterate through each list and update the movie rating if found
+    let movieFound = false;
+    for (const listName of listsToUpdate) {
+      user[listName] = user[listName].map((movie: Movie) => {
+        if (movie.IMDBid === IMDBid) {
+          movieFound = true;
+          return { ...movie, UserRating: newRating };
+        }
+        return movie;
+      });
+    }
+
+    if (!movieFound) {
+      return;
+    }
 
     // Prepare the update data
     const updateData = {
-      [listName]: updatedList,
+      MyList: user.MyList,
+      MyFavorites: user.MyFavorites,
+      ToWatch: user.ToWatch,
     };
 
-    // Send the updated list to the server
+    // Send the updated lists to the server
     const response = await axios.patch(
       `${BaseUrl}/updateuser/${username}`,
       updateData
