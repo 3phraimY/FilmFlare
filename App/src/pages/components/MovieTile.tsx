@@ -42,7 +42,11 @@ const MovieTile: React.FC<{ movie: Movie }> = ({ movie }) => {
   return (
     <>
       {isMovieDetailsActive && (
-        <MovieDetails movie={movie} setActive={setisMovieDetailsActive} />
+        <MovieDetails
+          key={movie.IMDBid}
+          movie={movie}
+          setActive={setisMovieDetailsActive}
+        />
       )}
       <button
         className="movie-tile-button"
