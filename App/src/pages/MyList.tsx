@@ -1,5 +1,5 @@
 import MovieTile from "./components/MovieTile";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserDataContext";
 import "./MyList.css";
@@ -9,8 +9,12 @@ function MyList() {
   if (!context) {
     return <div>Loading...</div>;
   }
-  const { user } = context;
+  const { user, refreshUserData } = context;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    refreshUserData();
+  }, []);
   return (
     <>
       <div className="title-wrapper">

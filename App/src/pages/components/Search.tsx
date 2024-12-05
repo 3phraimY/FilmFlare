@@ -47,11 +47,11 @@ export function Search() {
       {/* Display movies */}
       <div className="movie-grid">
         {movies.length > 0 ? (
-          movies.map((movie) => (
-            <MovieTile movie={movie} key={movie.IMDBid} />
-          ))
+          movies.map((movie) => <MovieTile movie={movie} key={movie.IMDBid} />)
         ) : (
-          <p className="no-movies-message">No movies found. Try searching for something else.</p>
+          <p className="no-movies-message">
+            No movies found. Try searching for something else.
+          </p>
         )}
       </div>
     </div>

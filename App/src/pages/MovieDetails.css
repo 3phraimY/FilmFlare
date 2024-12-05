@@ -46,7 +46,7 @@
   text-align: left;
   margin-top: 15px;
 }
-.movie-details-content img {
+.movie-poster-img {
   margin-left: 20px;
   height: 400px;
 }
@@ -245,4 +245,16 @@
 }
 .movie-actions {
   display: flex;
+}
+.star-row {
+  text-align: center;
+  margin-left: 20px;
+}
+.star-buttons {
+  background-color: #ee6c4d;
+  width: 50px;
+  height: 50px;
+}
+.star {
+  transform: translate(-20px, -9px);
 }

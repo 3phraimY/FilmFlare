@@ -11,9 +11,7 @@ export async function GetMoviebyMovieName(MovieName: string) {
     const response = await axios.get(
       `http://www.omdbapi.com/?apikey=ec74cdeb&s=${MovieName}`
     );
-    console.log(response.data);
     return response.data;
-
   } catch (error: any) {
     if (error.response.status == 404) {
       console.log(`MovieName: ${MovieName} not found (404).`);
@@ -29,7 +27,6 @@ export async function GetMoviebyID(MovieID: string) {
     const response = await axios.get(
       `http://www.omdbapi.com/?apikey=ec74cdeb&i=${MovieID}`
     );
-    //console.log(response.data);
     return response.data;
   } catch (error: any) {
     if (error.response.status == 404) {
