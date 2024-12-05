@@ -1,5 +1,5 @@
 import MovieTile from "./components/MovieTile";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext, Movie } from "../contexts/UserDataContext";
 import "./MyList.css";
@@ -13,37 +13,70 @@ function MyList() {
   const navigate = useNavigate();
 
   interface RecommendedMovie {
-    IMDBid: any;
+    IMDBid: string | number;
     movie: Movie;
     count: number;
     recommenders: string[];
-    // Add other properties from the movie object
+    ratings: number[];
+    averageRating: number;
   }
-  const [recommendations, setRecommendations] = useState<
-    Record<string, RecommendedMovie>
-  >({});
 
-  useEffect(() => {
+  // State to manage the rating for each movie the user wants to recommend
+  const [movieRatings, setMovieRatings] = useState<Record<string, number>>({});
+
+  // Recommendations logic
+  const recommendations = useMemo(() => {
     const movieCounts: Record<string, RecommendedMovie> = {};
 
     user?.Friends.forEach((friend) => {
       friend.Recommendations?.forEach((movie) => {
-        if (movieCounts[movie.IMDBid]) {
-          movieCounts[movie.IMDBid].count += 1;
-          movieCounts[movie.IMDBid].recommenders.push(friend.Username);
+        const existing = movieCounts[movie.IMDBid];
+        if (existing) {
+          existing.count += 1;
+          existing.recommenders.push(friend.Username);
+          if (movie.rating !== undefined) {
+            existing.ratings.push(movie.rating);
+          }
         } else {
           movieCounts[movie.IMDBid] = {
             IMDBid: movie.IMDBid,
             movie: movie,
             count: 1,
             recommenders: [friend.Username],
+            ratings: movie.rating !== undefined ? [movie.rating] : [],
+            averageRating: 0,
           };
         }
       });
     });
 
-    setRecommendations(movieCounts);
+    // Compute the average rating for each movie
+    Object.values(movieCounts).forEach((rec) => {
+      const totalRatings = rec.ratings.reduce((sum, rating) => sum + rating, 0);
+      rec.averageRating = rec.ratings.length > 0
+        ? totalRatings / rec.ratings.length
+        : 0;
+    });
+
+    return movieCounts;
   }, [user]);
+
+  // Handle rating change for a movie
+  const handleRatingChange = (IMDBid: string, rating: number) => {
+    setMovieRatings((prevRatings) => ({
+      ...prevRatings,
+      [IMDBid]: rating,
+    }));
+  };
+
+  // Handle recommending a movie
+  const handleRecommendMovie = (movie: Movie) => {
+    const rating = movieRatings[movie.IMDBid] || 0;
+
+    // Add the recommendation to the user's context (mocking this part as it may involve an API call or backend update)
+    console.log(`Recommending movie: ${movie.Title} with rating: ${rating}`);
+    // You'd typically call an API or update the user context here
+  };
 
   return (
     <>
@@ -61,6 +94,7 @@ function MyList() {
               height={25}
               width={25}
               src="https://img.icons8.com/?size=100&id=114100&format=png&color=000000"
+              alt="Add Movie Icon"
             />
           </button>
         </div>
@@ -70,63 +104,43 @@ function MyList() {
       <div className="movie-list-wrapper">
         <div className="my-list-movies">
           {user?.MyList.map((movie) => (
-            <MovieTile key={movie.IMDBid} movie={movie} />
+            <div key={movie.IMDBid} className="movie-item">
+              <MovieTile movie={movie} />
+              <div className="rate-movie">
+                <span>Rate this movie:</span>
+                {[...Array(5)].map((_, index) => (
+                  <label key={index}>
+                    <input
+                      type="radio"
+                      name={`rating-${movie.IMDBid}`}
+                      value={index + 1}
+                      checked={movieRatings[movie.IMDBid] === index + 1}
+                      onChange={() => handleRatingChange(movie.IMDBid, index + 1)}
+                    />{" "}
+                    {index + 1}
+                  </label>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
         <div className="reccomended-movies">
           {Object.values(recommendations).map((recommendedMovie) => (
             <div key={recommendedMovie.IMDBid} className="movie-recommendation">
-              {/* here should be created an array of RecommendedMovies, currently this is just displaying the movies in the same way as before */}
-              {/* each movie we iterate through should either append a new movie or add a rating and username to an existing rrecommendation */}
-              {/* after this array is created, should map through the array of MovieRecommendations and override the movie's user rating with the average user rating of the those who recommended and display a movie tile, followed by the recommneded by div */}
               <MovieTile movie={recommendedMovie.movie} />
               <div>
                 Recommended by {recommendedMovie.count}{" "}
                 {recommendedMovie.count > 1 ? "friends" : "friend"}:{" "}
                 {recommendedMovie.recommenders.join(", ")}
               </div>
-              <div className="star-rating">
-                <label>
-                  <input
-                    type="radio"
-                    name={`rating-${recommendedMovie.IMDBid}`}
-                    value="1"
-                  />{" "}
-                  1
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name={`rating-${recommendedMovie.IMDBid}`}
-                    value="2"
-                  />{" "}
-                  2
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name={`rating-${recommendedMovie.IMDBid}`}
-                    value="3"
-                  />{" "}
-                  3
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name={`rating-${recommendedMovie.IMDBid}`}
-                    value="4"
-                  />{" "}
-                  4
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name={`rating-${recommendedMovie.IMDBid}`}
-                    value="5"
-                  />{" "}
-                  5
-                </label>
-              </div>
+              {recommendedMovie.averageRating > 0 && (
+                <div>
+                  Average Rating:{" "}
+                  <span style={{ fontWeight: "bold" }}>
+                    {recommendedMovie.averageRating.toFixed(1)} / 5
+                  </span>
+                </div>
+              )}
             </div>
           ))}
         </div>
