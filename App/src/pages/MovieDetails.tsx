@@ -5,6 +5,7 @@ import {
   AddMovieToFriendRecommendations,
   AddMovieToList,
   ListName,
+  DeleteMovieFromList,
 } from "../hooks/UserApi";
 import { GetMoviebyID } from "../hooks/MovieApi";
 import { Movie } from "../contexts/UserDataContext";
@@ -51,6 +52,15 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
       0
     );
     setIsAddMovieActive(false);
+    refreshUserData();
+  }
+  function handleDeleteMovie(listName: ListName) {
+    DeleteMovieFromList(
+      user!.Username,
+      listName,
+      movie.IMDBid,
+    );
+    refreshUserData();
   }
   function handleRecommendMovie(friendUsername: string) {
     AddMovieToFriendRecommendations(
@@ -62,6 +72,7 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
       0
     );
     setIsRecommendMovieActive(false);
+    refreshUserData();
   }
 
   const [isAddMovieActive, setIsAddMovieActive] = useState<boolean>(false);
