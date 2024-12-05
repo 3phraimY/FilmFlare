@@ -1,9 +1,5 @@
 import MovieTile from "./components/MovieTile";
-<<<<<<< HEAD
 import { useContext, useState, useMemo } from "react";
-=======
-import { useContext, useEffect } from "react";
->>>>>>> origin/main
 import { useNavigate } from "react-router-dom";
 import { UserContext, Movie } from "../contexts/UserDataContext";
 import "./MyList.css";
@@ -16,7 +12,6 @@ function MyList() {
   const { user, refreshUserData } = context;
   const navigate = useNavigate();
 
-<<<<<<< HEAD
   interface RecommendedMovie {
     IMDBid: string | number;
     movie: Movie;
@@ -83,11 +78,6 @@ function MyList() {
     // You'd typically call an API or update the user context here
   };
 
-=======
-  useEffect(() => {
-    refreshUserData();
-  }, []);
->>>>>>> origin/main
   return (
     <>
       <div className="title-wrapper">
