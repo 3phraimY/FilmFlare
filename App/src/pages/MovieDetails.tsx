@@ -5,10 +5,13 @@ import {
   AddMovieToFriendRecommendations,
   AddMovieToList,
   ListName,
+  UpdateMovieRating,
 } from "../hooks/UserApi";
 import { GetMoviebyID } from "../hooks/MovieApi";
 import { Movie } from "../contexts/UserDataContext";
 import "./MovieDetails.css";
+import filledStar from "../assets/fillStar.png";
+import emptyStar from "../assets/emptyStar.png";
 
 const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
   movie,
@@ -21,6 +24,58 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
   const { user, refreshUserData } = context;
 
   const [response, setResponse] = useState<any>();
+  const [userRating, setUserRating] = useState<number>(movie.UserRating);
+
+  function handleStarClick(newRating: number) {
+    setUserRating(newRating);
+    UpdateMovieRating(user!.Username, movie.IMDBid, newRating)
+      .then(() => {
+        refreshUserData();
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  }
+
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      if (i < userRating) {
+        stars.push(
+          <button
+            className="star-buttons"
+            onClick={() => handleStarClick(i + 1)}
+          >
+            <img
+              key={i}
+              height={50}
+              width={50}
+              src={filledStar}
+              alt="filled star"
+              className="star"
+            />
+          </button>
+        );
+      } else {
+        stars.push(
+          <button
+            className="star-buttons"
+            onClick={() => handleStarClick(i + 1)}
+          >
+            <img
+              key={i}
+              height={50}
+              width={50}
+              src={emptyStar}
+              alt="empty star"
+              className="star"
+            />
+          </button>
+        );
+      }
+    }
+    return stars;
+  };
 
   useEffect(() => {
     refreshUserData();
@@ -45,26 +100,30 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
   }, []);
 
   function handleAddMovie(listName: ListName) {
+    setIsRecommendMovieActive(false);
     AddMovieToList(
       user!.Username,
       listName,
       movie.IMDBid,
       movie.Title,
       movie.MoviePosterURL,
-      0
+      userRating
     );
     setIsAddMovieActive(false);
+    refreshUserData();
   }
   function handleRecommendMovie(friendUsername: string) {
+    setIsAddMovieActive(false);
     AddMovieToFriendRecommendations(
       user!.Username,
       friendUsername,
       movie.IMDBid,
       movie.Title,
       movie.MoviePosterURL,
-      0
+      userRating
     );
     setIsRecommendMovieActive(false);
+    refreshUserData();
   }
 
   const [isAddMovieActive, setIsAddMovieActive] = useState<boolean>(false);
@@ -105,7 +164,11 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
             </div>
             <div className="movie-details-content">
               <div>
-                <img src={response && response.Poster}></img>
+                <img
+                  className="movie-poster-img"
+                  src={response && response.Poster}
+                />
+                <div className="star-row">{renderStars()}</div>
               </div>
               <div className="movie-details-content-text">
                 {response.Rated && (
