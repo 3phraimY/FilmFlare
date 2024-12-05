@@ -304,10 +304,7 @@ export async function RemoveFriend(username: string, friendUsername: string) {
     };
 
     // Send the updated list to the server for the current user
-    const userResponse = await axios.patch(
-      `${BaseUrl}/updateuser/${username}`,
-      updateUserData
-    );
+    await axios.patch(`${BaseUrl}/updateuser/${username}`, updateUserData);
 
     // Fetch the friend's data
     const friendUser = await GetUserDataByUsername(friendUsername);
@@ -327,7 +324,7 @@ export async function RemoveFriend(username: string, friendUsername: string) {
     };
 
     // Send the updated list to the server for the friend
-    const friendResponse = await axios.patch(
+    await axios.patch(
       `${BaseUrl}/updateuser/${friendUsername}`,
       updateFriendData
     );

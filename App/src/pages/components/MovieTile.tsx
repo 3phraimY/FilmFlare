@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./MovieTile.css";
 import "./Search.css";
 import { useState } from "react";
