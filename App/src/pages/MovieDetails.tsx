@@ -6,6 +6,7 @@ import {
   AddMovieToList,
   ListName,
   UpdateMovieRating,
+  DeleteMovieFromList,
 } from "../hooks/UserApi";
 import { GetMoviebyID } from "../hooks/MovieApi";
 import { Movie } from "../contexts/UserDataContext";
@@ -112,6 +113,20 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
     setIsAddMovieActive(false);
     refreshUserData();
   }
+  async function handleDeleteMovie(listName: ListName) {
+    async function deleteMovieFix() {
+      DeleteMovieFromList(
+      user!.Username,
+      listName,
+      movie.IMDBid,
+    );
+    setIsDeleteMovieActive(false);
+    refreshUserData();
+    }
+    await deleteMovieFix();
+    setActive(false);
+  }
+
   function handleRecommendMovie(friendUsername: string) {
     setIsAddMovieActive(false);
     AddMovieToFriendRecommendations(
@@ -127,6 +142,7 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
   }
 
   const [isAddMovieActive, setIsAddMovieActive] = useState<boolean>(false);
+  const [isDeleteMovieActive, setIsDeleteMovieActive] = useState<boolean>(false);
   const [isRecommendMovieActive, setIsRecommendMovieActive] =
     useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -213,6 +229,11 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
                 Plot: <span className="white-text">{response.Plot}</span>
               </div>
             )}
+
+
+
+
+
             <div className="add-movie-dropdown-wrapper">
               <div className="add-movie-title-wrapper"></div>
               {isAddMovieActive && (
@@ -264,6 +285,11 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
                   src="https://img.icons8.com/?size=100&id=114100&format=png&color=000000"
                 />
               </button>
+            </div>
+
+
+
+
               {isRecommendMovieActive && (
                 <div
                   ref={dropdownRef}
@@ -308,6 +334,73 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
                   src="https://img.icons8.com/?size=100&id=114100&format=png&color=000000"
                 />
               </button>
+
+
+
+
+
+
+
+              <div className="delete-movie-dropdown-wrapper">
+              <div className="delete-movie-title-wrapper"></div>
+              {isDeleteMovieActive && (
+                <div className="delete-movie-dropdown-wrapper">
+                  <div className="delete-movie-dropdown">
+                    <div className="dropdown-title">
+                      <div className="delete-movie-from">Delete From: </div>
+                      <button
+                        className="delete-movie-close"
+                        onClick={() => setIsDeleteMovieActive(false)}
+                      >
+                        <img
+                          height={30}
+                          width={30}
+                          src="https://icon-library.com/images/close-x-icon/close-x-icon-17.jpg"
+                        />
+                      </button>
+                    </div>
+                    <button
+                      className="delete-movie-dropdown-buttons"
+                      onClick={() => handleDeleteMovie(ListName.MyList)}
+                    >
+                      {ListName.MyList}
+                    </button>
+                    <button
+                      className="delete-movie-dropdown-buttons"
+                      onClick={() => handleDeleteMovie(ListName.ToWatch)}
+                    >
+                      {ListName.ToWatch}
+                    </button>
+                    <button
+                      className="delete-movie-dropdown-buttons"
+                      onClick={() => handleDeleteMovie(ListName.MyFavorites)}
+                    >
+                      {ListName.MyFavorites}
+                    </button>
+                  </div>
+                </div>
+              )}
+              <button
+                onClick={() => setIsDeleteMovieActive(true)}
+                className="movie-details-delete-movie-button"
+              >
+                <div className="movie-details-delete-movie-text">Delete Movie</div>
+                <img
+                  style={{ alignSelf: "center", marginLeft: "5px" }}
+                  height={25}
+                  width={25}
+                  src="https://img.icons8.com/?size=100&id=114100&format=png&color=000000"//use different image
+                />
+              </button>
+
+
+
+
+
+
+
+
+            
             </div>
           </div>
         </div>
