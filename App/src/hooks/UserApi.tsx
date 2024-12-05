@@ -4,7 +4,7 @@ import { Movie, Friend } from "../contexts/UserDataContext";
 //TODO
 //Implement all API endpoints in functions for front end
 
-const BaseUrl = "http://localhost:3000/api";
+const BaseUrl = import.meta.env.VITE_BASEURL || "http://localhost:3000/api";
 
 // Get all users
 export async function GetAllUsers() {
