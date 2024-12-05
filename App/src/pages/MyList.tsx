@@ -1,5 +1,5 @@
 import MovieTile from "./components/MovieTile";
-import { useContext, useState, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext, Movie } from "../contexts/UserDataContext";
 import "./MyList.css";
@@ -9,7 +9,7 @@ function MyList() {
   if (!context) {
     return <div>Loading...</div>;
   }
-  const { user, refreshUserData } = context;
+  const { user } = context;
   const navigate = useNavigate();
 
   interface RecommendedMovie {
@@ -17,12 +17,7 @@ function MyList() {
     movie: Movie;
     count: number;
     recommenders: string[];
-    ratings: number[];
-    averageRating: number;
   }
-
-  // State to manage the rating for each movie the user wants to recommend
-  const [movieRatings, setMovieRatings] = useState<Record<string, number>>({});
 
   // Recommendations logic
   const recommendations = useMemo(() => {
@@ -34,49 +29,19 @@ function MyList() {
         if (existing) {
           existing.count += 1;
           existing.recommenders.push(friend.Username);
-          if (movie.rating !== undefined) {
-            existing.ratings.push(movie.rating);
-          }
         } else {
           movieCounts[movie.IMDBid] = {
             IMDBid: movie.IMDBid,
             movie: movie,
             count: 1,
             recommenders: [friend.Username],
-            ratings: movie.rating !== undefined ? [movie.rating] : [],
-            averageRating: 0,
           };
         }
       });
     });
 
-    // Compute the average rating for each movie
-    Object.values(movieCounts).forEach((rec) => {
-      const totalRatings = rec.ratings.reduce((sum, rating) => sum + rating, 0);
-      rec.averageRating = rec.ratings.length > 0
-        ? totalRatings / rec.ratings.length
-        : 0;
-    });
-
     return movieCounts;
   }, [user]);
-
-  // Handle rating change for a movie
-  const handleRatingChange = (IMDBid: string, rating: number) => {
-    setMovieRatings((prevRatings) => ({
-      ...prevRatings,
-      [IMDBid]: rating,
-    }));
-  };
-
-  // Handle recommending a movie
-  const handleRecommendMovie = (movie: Movie) => {
-    const rating = movieRatings[movie.IMDBid] || 0;
-
-    // Add the recommendation to the user's context (mocking this part as it may involve an API call or backend update)
-    console.log(`Recommending movie: ${movie.Title} with rating: ${rating}`);
-    // You'd typically call an API or update the user context here
-  };
 
   return (
     <>
@@ -104,24 +69,7 @@ function MyList() {
       <div className="movie-list-wrapper">
         <div className="my-list-movies">
           {user?.MyList.map((movie) => (
-            <div key={movie.IMDBid} className="movie-item">
-              <MovieTile movie={movie} />
-              <div className="rate-movie">
-                <span>Rate this movie:</span>
-                {[...Array(5)].map((_, index) => (
-                  <label key={index}>
-                    <input
-                      type="radio"
-                      name={`rating-${movie.IMDBid}`}
-                      value={index + 1}
-                      checked={movieRatings[movie.IMDBid] === index + 1}
-                      onChange={() => handleRatingChange(movie.IMDBid, index + 1)}
-                    />{" "}
-                    {index + 1}
-                  </label>
-                ))}
-              </div>
-            </div>
+            <MovieTile key={movie.IMDBid} movie={movie} />
           ))}
         </div>
         <div className="reccomended-movies">
@@ -129,18 +77,12 @@ function MyList() {
             <div key={recommendedMovie.IMDBid} className="movie-recommendation">
               <MovieTile movie={recommendedMovie.movie} />
               <div>
-                Recommended by {recommendedMovie.count}{" "}
-                {recommendedMovie.count > 1 ? "friends" : "friend"}:{" "}
-                {recommendedMovie.recommenders.join(", ")}
+                <strong>Recommended by:</strong> {recommendedMovie.count}{" "}
+                {recommendedMovie.count > 1 ? "friends" : "friend"}
               </div>
-              {recommendedMovie.averageRating > 0 && (
-                <div>
-                  Average Rating:{" "}
-                  <span style={{ fontWeight: "bold" }}>
-                    {recommendedMovie.averageRating.toFixed(1)} / 5
-                  </span>
-                </div>
-              )}
+              <div>
+                <strong>Names:</strong> {recommendedMovie.recommenders.join(", ")}
+              </div>
             </div>
           ))}
         </div>
