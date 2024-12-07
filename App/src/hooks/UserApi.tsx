@@ -4,7 +4,7 @@ import { Movie, Friend } from "../contexts/UserDataContext";
 //TODO
 //Implement all API endpoints in functions for front end
 
-const BaseUrl = "http://localhost:3000/api";
+const BaseUrl = import.meta.env.VITE_BASEURL || "http://localhost:3000/api";
 
 // Get all users
 export async function GetAllUsers() {
@@ -304,10 +304,7 @@ export async function RemoveFriend(username: string, friendUsername: string) {
     };
 
     // Send the updated list to the server for the current user
-    const userResponse = await axios.patch(
-      `${BaseUrl}/updateuser/${username}`,
-      updateUserData
-    );
+    await axios.patch(`${BaseUrl}/updateuser/${username}`, updateUserData);
 
     // Fetch the friend's data
     const friendUser = await GetUserDataByUsername(friendUsername);
@@ -327,7 +324,7 @@ export async function RemoveFriend(username: string, friendUsername: string) {
     };
 
     // Send the updated list to the server for the friend
-    const friendResponse = await axios.patch(
+    await axios.patch(
       `${BaseUrl}/updateuser/${friendUsername}`,
       updateFriendData
     );

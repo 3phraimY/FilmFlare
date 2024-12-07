@@ -79,6 +79,14 @@ function SignInPage() {
           </button>
         </form>
       </div>
+      <div className="sign-up-page-navigator-wrapper">
+        <button
+          className="sign-up-page-navigator"
+          onClick={() => navigate("/signup")}
+        >
+          Sign Up
+        </button>
+      </div>
     </>
   );
 }
