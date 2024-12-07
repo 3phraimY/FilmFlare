@@ -12,6 +12,7 @@ function ToWatch() {
   const { user } = context;
   const navigate = useNavigate();
   return (
+     
     <>
       <div className="add-movie">
         <button onClick={() => navigate("/search")} style={{ display: "flex" }}>
@@ -30,6 +31,7 @@ function ToWatch() {
         {user?.ToWatch.map((movie) => (
           <MovieTile key={movie.IMDBid} movie={movie} />
         ))}
+        
       </div>
     </>
   );
