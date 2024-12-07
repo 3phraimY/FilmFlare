@@ -6,7 +6,7 @@
   border-radius: 10px;
   box-shadow: 0 0 24px rgba(33, 71, 121, 0.8); /* Dark blue shadow */
   color: #293241; /* Deep navy text */
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 /* 
 .sign-up-page 
@@ -61,7 +61,7 @@ margin-bottom: 1rem;
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #3d5a80; /* Soft blue for labels */
+  color: #ffffff; /* Soft blue for labels */
 }
 /*
 .form-group label 
@@ -72,7 +72,7 @@ color: #3d5a80;
 }
 */
 .form-group input {
-  width: 100%;
+  width: 95.5%;
   padding: 0.5rem;
   border: 1px solid #35627c; /* Light blue border */
   background-color: #e0fbfc; /* Light background */
@@ -175,3 +175,13 @@ transform: scale(0.95);
 background-color: #a73228;
 }
 */
+.sign-up-page-navigator {
+  width: 100%;
+  background-color: #98c1d9;
+}
+.sign-up-page-navigator-wrapper {
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  place-self: center;
+}
