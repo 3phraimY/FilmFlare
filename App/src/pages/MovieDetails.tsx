@@ -168,7 +168,7 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
   useEffect(() => {
     if (dropdownRef.current) {
       const dropdownHeight = dropdownRef.current.offsetHeight;
-      setTransform(`translate(364px, ${-dropdownHeight + 51}px)`);
+      setTransform(`translate(-34px, ${-dropdownHeight + 51}px)`);
     }
   }, [isRecommendMovieActive]);
 
@@ -296,37 +296,38 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
                 </button>
               </div>
 
-              {isRecommendMovieActive && (
-                <div
-                  ref={dropdownRef}
-                  style={{ transform }}
-                  className="recommend-movie-dropdown"
-                >
-                  <div className="dropdown-title">
-                    <div className="add-movie-to">Recommend To: </div>
-                    <button
-                      className="recommend-movie-close"
-                      onClick={() => setIsRecommendMovieActive(false)}
-                    >
-                      <img
-                        height={30}
-                        width={30}
-                        src="https://icon-library.com/images/close-x-icon/close-x-icon-17.jpg"
-                      />
-                    </button>
-                  </div>
-                  {user?.Friends.map((friend) => (
-                    <button
-                      key={friend.Username}
-                      className="recommend-movie-dropdown-buttons"
-                      onClick={() => handleRecommendMovie(friend.Username)}
-                    >
-                      {friend.Username}
-                    </button>
-                  ))}
-                </div>
-              )}
               <div className="recommned-movie-dropdown-wrapper">
+                {isRecommendMovieActive && (
+                  <div
+                    ref={dropdownRef}
+                    style={{ transform }}
+                    className="recommend-movie-dropdown"
+                  >
+                    <div className="dropdown-title">
+                      <div className="add-movie-to">Recommend To: </div>
+                      <button
+                        className="recommend-movie-close"
+                        onClick={() => setIsRecommendMovieActive(false)}
+                      >
+                        <img
+                          height={30}
+                          width={30}
+                          src="https://icon-library.com/images/close-x-icon/close-x-icon-17.jpg"
+                        />
+                      </button>
+                    </div>
+                    {user?.Friends.map((friend) => (
+                      <button
+                        key={friend.Username}
+                        className="recommend-movie-dropdown-buttons"
+                        onClick={() => handleRecommendMovie(friend.Username)}
+                      >
+                        {friend.Username}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
                 <button
                   onClick={() => handleOpenRecommendMovie()}
                   className="movie-details-recommend-movie-button"
