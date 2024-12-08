@@ -9,6 +9,7 @@
   padding: 30px;
   border-radius: 15px 15px 15px 15px;
   color: #000000;
+  z-index: 2;
 }
 .movie-details-background {
   width: 100%;
@@ -22,12 +23,13 @@
   box-sizing: border-box;
 }
 .movie-details-title-text {
-  font-size: 45px;
+  font-size: 28px;
   color: #000000;
   width: 100%;
   place-items: center;
   text-align: -webkit-center;
   margin-top: 15px;
+  margin-bottom: -19px;
 }
 .movie-details-close {
   height: 38px;
@@ -48,19 +50,21 @@
 }
 .movie-poster-img {
   margin-left: 20px;
-  height: 400px;
+  height: 250px;
 }
 .white-text {
   color: #ffffff;
 }
 .movie-details-content-text {
   margin-left: 15px;
-  font-size: 30px;
+  font-size: 22px;
   align-content: center;
 }
 .movie-details-plot {
-  font-size: 30px;
+  font-size: 22px;
   margin-top: 10px;
+  margin-left: 30px;
+  margin-right: 20px;
 }
 .movie-details-add-movie-button {
   display: flex;
@@ -74,13 +78,13 @@
   font-size: 25px;
 }
 .add-movie-dropdown {
-  transform: translate(109px, -217px);
+  transform: translate(-44px, -217px);
   height: 248px;
   position: absolute;
   width: 200px;
   background-color: #98c1d9;
   padding: 10px;
-  z-index: 0;
+  z-index: 10;
   border-radius: 15px;
 }
 .add-movie-to {
@@ -94,6 +98,7 @@
 .add-movie-dropdown-wrapper {
   display: flex;
   justify-content: center;
+  flex: 1;
 }
 .add-movie-dropdown-buttons {
   display: block;
@@ -110,10 +115,6 @@
   display: flex;
 }
 
-
-
-
-
 .movie-details-recommend-movie-button {
   display: flex;
   background-color: #ee6c4d;
@@ -123,16 +124,6 @@
 }
 .movie-details-recommend-movie-text {
   font-size: 25px;
-}
-.add-movie-dropdown {
-  transform: translate(109px, -217px);
-  height: 248px;
-  position: absolute;
-  width: 200px;
-  background-color: #98c1d9;
-  padding: 10px;
-  z-index: 0;
-  border-radius: 15px;
 }
 .add-movie-to {
   font-size: 35px;
@@ -145,6 +136,7 @@
 .add-movie-dropdown-wrapper {
   display: flex;
   justify-content: center;
+  flex: 1;
 }
 .add-movie-dropdown-buttons {
   display: block;
@@ -158,17 +150,14 @@
   display: flex;
 }
 
-
-
-
 .recommend-movie-dropdown {
-  transform: translate(109px, -217px);
+  transform: translate(159px, -217px);
   height: fit-content;
   position: absolute;
   width: 350px;
   background-color: #98c1d9;
   padding: 10px;
-  z-index: 0;
+  z-index: 10;
   border-radius: 15px;
 }
 .recommend-movie-to {
@@ -195,10 +184,6 @@
   display: flex;
 }
 
-
-
-
-
 .movie-details-delete-movie-button {
   display: flex;
   background-color: #ee6c4d;
@@ -211,13 +196,13 @@
   font-size: 25px;
 }
 .delete-movie-dropdown {
-  transform: translate(109px, -217px);
+  transform: translate(153px, -217px);
   height: 248px;
   position: absolute;
-  width: 200px;
+  width: 300px;
   background-color: #98c1d9;
   padding: 10px;
-  z-index: 0;
+  z-index: 10;
   border-radius: 15px;
 }
 .delete-movie-from {
@@ -252,9 +237,15 @@
 }
 .star-buttons {
   background-color: #ee6c4d;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
 }
 .star {
-  transform: translate(-20px, -9px);
+  transform: translate(-15px, -10px);
+}
+.bottom-row-buttons-wrapper {
+  display: flex;
+}
+.recommned-movie-dropdown-wrapper {
+  flex: 1;
 }
