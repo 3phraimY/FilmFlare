@@ -7,6 +7,10 @@
   place-self: center;
   margin-top: 40px;
   padding: 25px;
+  position: absolute;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .current-friends-wrapper {
   background-color: #ee6c4d;

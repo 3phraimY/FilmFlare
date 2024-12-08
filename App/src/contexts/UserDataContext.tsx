@@ -2,6 +2,7 @@ import React, { createContext, useState, ReactNode } from "react";
 import { GetUserDataByUsername } from "../hooks/UserApi";
 
 export interface Movie {
+  rating: undefined;
   IMDBid: string;
   Title: string;
   UserRating: number;

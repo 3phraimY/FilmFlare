@@ -49,8 +49,8 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
           >
             <img
               key={i}
-              height={50}
-              width={50}
+              height={30}
+              width={30}
               src={filledStar}
               alt="filled star"
               className="star"
@@ -65,8 +65,8 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
           >
             <img
               key={i}
-              height={50}
-              width={50}
+              height={30}
+              width={30}
               src={emptyStar}
               alt="empty star"
               className="star"
@@ -78,6 +78,9 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
     return stars;
   };
 
+  useEffect(() => {
+    refreshUserData();
+  }, []);
   useEffect(() => {
     const fetchMovieData = async () => {
       try {
@@ -112,13 +115,9 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
   }
   async function handleDeleteMovie(listName: ListName) {
     async function deleteMovieFix() {
-      DeleteMovieFromList(
-      user!.Username,
-      listName,
-      movie.IMDBid,
-    );
-    setIsDeleteMovieActive(false);
-    refreshUserData();
+      DeleteMovieFromList(user!.Username, listName, movie.IMDBid);
+      setIsDeleteMovieActive(false);
+      refreshUserData();
     }
     await deleteMovieFix();
     setActive(false);
@@ -139,7 +138,8 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
   }
 
   const [isAddMovieActive, setIsAddMovieActive] = useState<boolean>(false);
-  const [isDeleteMovieActive, setIsDeleteMovieActive] = useState<boolean>(false);
+  const [isDeleteMovieActive, setIsDeleteMovieActive] =
+    useState<boolean>(false);
   const [isRecommendMovieActive, setIsRecommendMovieActive] =
     useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -147,10 +147,28 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
     "translate(109px, -217px)"
   );
 
+  function handleOpenAddMovie() {
+    setIsAddMovieActive(true);
+    setIsDeleteMovieActive(false);
+    setIsRecommendMovieActive(false);
+  }
+
+  function handleOpenDeleteMovie() {
+    setIsAddMovieActive(false);
+    setIsDeleteMovieActive(true);
+    setIsRecommendMovieActive(false);
+  }
+
+  function handleOpenRecommendMovie() {
+    setIsAddMovieActive(false);
+    setIsDeleteMovieActive(false);
+    setIsRecommendMovieActive(true);
+  }
+
   useEffect(() => {
     if (dropdownRef.current) {
       const dropdownHeight = dropdownRef.current.offsetHeight;
-      setTransform(`translate(109px, ${-dropdownHeight + 50}px)`);
+      setTransform(`translate(364px, ${-dropdownHeight + 51}px)`);
     }
   }, [isRecommendMovieActive]);
 
@@ -176,7 +194,7 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
               </button>
             </div>
             <div className="movie-details-content">
-              <div>
+              <div style={{ placeItems: "center" }}>
                 <img
                   className="movie-poster-img"
                   src={response && response.Poster}
@@ -227,14 +245,9 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
               </div>
             )}
 
-
-
-
-
-            <div className="add-movie-dropdown-wrapper">
-              <div className="add-movie-title-wrapper"></div>
-              {isAddMovieActive && (
-                <div className="add-movie-dropdown-wrapper">
+            <div className="bottom-row-buttons-wrapper">
+              <div className="add-movie-dropdown-wrapper">
+                {isAddMovieActive && (
                   <div className="add-movie-dropdown">
                     <div className="dropdown-title">
                       <div className="add-movie-to">Add to: </div>
@@ -268,24 +281,20 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
                       {ListName.MyFavorites}
                     </button>
                   </div>
-                </div>
-              )}
-              <button
-                onClick={() => setIsAddMovieActive(true)}
-                className="movie-details-add-movie-button"
-              >
-                <div className="movie-details-add-movie-text">Add Movie</div>
-                <img
-                  style={{ alignSelf: "center", marginLeft: "5px" }}
-                  height={25}
-                  width={25}
-                  src="https://img.icons8.com/?size=100&id=114100&format=png&color=000000"
-                />
-              </button>
-            </div>
-
-
-
+                )}
+                <button
+                  onClick={() => handleOpenAddMovie()}
+                  className="movie-details-add-movie-button"
+                >
+                  <div className="movie-details-add-movie-text">Add Movie</div>
+                  <img
+                    style={{ alignSelf: "center", marginLeft: "5px" }}
+                    height={25}
+                    width={25}
+                    src="https://img.icons8.com/?size=100&id=114100&format=png&color=000000"
+                  />
+                </button>
+              </div>
 
               {isRecommendMovieActive && (
                 <div
@@ -317,87 +326,76 @@ const MovieDetails: React.FC<{ movie: Movie; setActive: any }> = ({
                   ))}
                 </div>
               )}
-              <button
-                onClick={() => setIsRecommendMovieActive(true)}
-                className="movie-details-recommend-movie-button"
-              >
-                <div className="movie-details-recommend-movie-text">
-                  Recommend Movie
-                </div>
-                <img
-                  style={{ alignSelf: "center", marginLeft: "5px" }}
-                  height={25}
-                  width={25}
-                  src="https://img.icons8.com/?size=100&id=114100&format=png&color=000000"
-                />
-              </button>
-
-
-
-
-
-
+              <div className="recommned-movie-dropdown-wrapper">
+                <button
+                  onClick={() => handleOpenRecommendMovie()}
+                  className="movie-details-recommend-movie-button"
+                >
+                  <div className="movie-details-recommend-movie-text">
+                    Recommend Movie
+                  </div>
+                  <img
+                    style={{ alignSelf: "center", marginLeft: "5px" }}
+                    height={25}
+                    width={25}
+                    src="https://img.icons8.com/?size=100&id=114100&format=png&color=000000"
+                  />
+                </button>
+              </div>
 
               <div className="delete-movie-dropdown-wrapper">
-              <div className="delete-movie-title-wrapper"></div>
-              {isDeleteMovieActive && (
-                <div className="delete-movie-dropdown-wrapper">
-                  <div className="delete-movie-dropdown">
-                    <div className="dropdown-title">
-                      <div className="delete-movie-from">Delete From: </div>
+                {isDeleteMovieActive && (
+                  <div className="delete-movie-dropdown-wrapper">
+                    <div className="delete-movie-dropdown">
+                      <div className="dropdown-title">
+                        <div className="delete-movie-from">Delete From: </div>
+                        <button
+                          className="delete-movie-close"
+                          onClick={() => setIsDeleteMovieActive(false)}
+                        >
+                          <img
+                            height={30}
+                            width={30}
+                            src="https://icon-library.com/images/close-x-icon/close-x-icon-17.jpg"
+                          />
+                        </button>
+                      </div>
                       <button
-                        className="delete-movie-close"
-                        onClick={() => setIsDeleteMovieActive(false)}
+                        className="delete-movie-dropdown-buttons"
+                        onClick={() => handleDeleteMovie(ListName.MyList)}
                       >
-                        <img
-                          height={30}
-                          width={30}
-                          src="https://icon-library.com/images/close-x-icon/close-x-icon-17.jpg"
-                        />
+                        {ListName.MyList}
+                      </button>
+                      <button
+                        className="delete-movie-dropdown-buttons"
+                        onClick={() => handleDeleteMovie(ListName.ToWatch)}
+                      >
+                        {ListName.ToWatch}
+                      </button>
+                      <button
+                        className="delete-movie-dropdown-buttons"
+                        onClick={() => handleDeleteMovie(ListName.MyFavorites)}
+                      >
+                        {ListName.MyFavorites}
                       </button>
                     </div>
-                    <button
-                      className="delete-movie-dropdown-buttons"
-                      onClick={() => handleDeleteMovie(ListName.MyList)}
-                    >
-                      {ListName.MyList}
-                    </button>
-                    <button
-                      className="delete-movie-dropdown-buttons"
-                      onClick={() => handleDeleteMovie(ListName.ToWatch)}
-                    >
-                      {ListName.ToWatch}
-                    </button>
-                    <button
-                      className="delete-movie-dropdown-buttons"
-                      onClick={() => handleDeleteMovie(ListName.MyFavorites)}
-                    >
-                      {ListName.MyFavorites}
-                    </button>
                   </div>
-                </div>
-              )}
-              <button
-                onClick={() => setIsDeleteMovieActive(true)}
-                className="movie-details-delete-movie-button"
-              >
-                <div className="movie-details-delete-movie-text">Delete Movie</div>
-                <img
-                  style={{ alignSelf: "center", marginLeft: "5px" }}
-                  height={25}
-                  width={25}
-                  src="https://img.icons8.com/?size=100&id=114100&format=png&color=000000"//use different image
-                />
-              </button>
-
-
-
-
-
-
-
-
-            
+                )}
+                <button
+                  onClick={() => handleOpenDeleteMovie()}
+                  className="movie-details-delete-movie-button"
+                >
+                  <div className="movie-details-delete-movie-text">
+                    Delete Movie
+                  </div>
+                  <img
+                    style={{ alignSelf: "center", marginLeft: "5px" }}
+                    height={25}
+                    width={25}
+                    src="https://img.icons8.com/?size=100&id=114100&format=png&color=000000" //use different image
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>
