@@ -5,58 +5,37 @@
   background-color: #293241; /* Light background */
   border-radius: 10px;
   box-shadow: 0 0 24px rgba(34, 71, 121, 0.8); /* Dark blue shadow */
+
+  color: #ffffff; /* Light text */
+  font-family: "Arial", sans-serif;
+}
+
   color: #293241; /* Deep navy text */
 }
+
 .sign-up-page h1 {
   text-align: center;
   color: #ee6c4d; /* Warm accent */
   margin-bottom: 1.5rem;
   font-size: 2rem;
 }
-/*
-.sign-up-page h1 
-{
-text-align: center;
-color #ee6c4d; 
-margin-bottom: 1.5rm; 
-font-size:2rem; 
-}
-*/
+
 .error-message {
   color: #ee6c4d; /* Warm accent for errors */
   text-align: center;
   margin-bottom: 1rem;
 }
-/*
-.error-message 
-{
-color: #ee6c4d; 
-text-align; center; 
-margin-bottom: 1rem; 
-}
-*/
+
 .form-group {
   margin-bottom: 1rem;
 }
-/*
-.form-group 
-{
-margin-bottom: 1rem; 
-}
-*/
+
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
   color: #ffffff; /* Soft blue for labels */
 }
-/*
-.form-group label 
-{
-display: block; 
-margin-bottom: 0.5rem; 
-color: #3d5a80;
-}
-*/
+
 .form-group input {
   width: 95.5%;
   padding: 0.5rem;
@@ -65,53 +44,7 @@ color: #3d5a80;
   color: #293241; /* Deep navy text */
   border-radius: 4px;
 }
-/*
-.form-group input
-{
-width: 100%; 
-padding: .5rem; 
-border: 1px solid #35627c; 
-background-color #e0fbfc; 
-border-radius: 4px; 
-}
-*/
-button[type="submit"] {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #ee6c4d; /* Warm accent */
-  color: #e0fbfc; /* Light text on button */
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-/*
-buttom[type="sumbit"]
-{
-width: 100%; 
-padding: .75rem; 
-background-color: #ee6c4d; 
-color: #e0fbfc; 
-border: none; 
-border-radius: 4px; 
-font-size: 1rem; 
-font-weight: bold;
-cursor: pointer; 
-transition: background-color 0.3s ease; 
-}
-*/
-button[type="submit"]:hover {
-  background-color: #c64231; /* Slightly darker warm accent */
-}
-/*
-buttom[type="sumbit"]:hover 
-{
-background-color: #c64231; 
 
-}
-*/
 button[type="submit"] {
   width: 100%;
   padding: 0.75rem;
@@ -124,43 +57,17 @@ button[type="submit"] {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
-/*
-buttom[type="sumbit"]
-{
-width: 100%
-padding: 0.75rem;
-background-color: #ee6c4d; 
-color: #e0fbfc; 
-border: none;
-border-radius: 4px; 
-font-size: 1rem; 
-font-weight: bold; 
-cursor: pointer; 
-transition: background-color 0.3s ease, transform 0.2s ease; 
-}
-*/
+
 button[type="submit"]:hover {
   background-color: #c64231; /* Slightly darker warm accent */
   transform: scale(1.05); /* Slightly enlarge */
 }
-/*
-button[type="sumbit"]:hover 
-{
-background-color: #c64231; 
-transfrom: scale(1.05);
-}
-*/
+
 button[type="submit"]:active {
   transform: scale(0.95); /* Slightly shrink for pressed effect */
   background-color: #a73228; /* Even darker warm accent */
 }
-/*
-button[type="sumbit"]:active
-{
-transform: scale(0.95);
-background-color: #a73228;
-}
-*/
+
 .sign-up-page-navigator {
   width: 100%;
   display: flex; /* Use flexbox to control layout */
@@ -168,7 +75,6 @@ background-color: #a73228;
   align-items: center; /* Center items horizontally */
   gap: 1rem; /* Add spacing between elements */
   padding: 1rem; /* Add some padding */
-  
 }
 
 .sign-up-page-navigator-wrapper {
@@ -176,11 +82,25 @@ background-color: #a73228;
   max-width: 400px;
   width: 100%;
   place-self: center;
-  
 }
 
 .sign-up-page-navigator button {
   align-self: stretch; /* Make button match the width of the container */
-  background-color: #c64231;
+  background-color: #ee6c4d; /* Warm accent */
+  color: #e0fbfc;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+.sign-up-page-navigator button:hover {
+  background-color: #c64231; /* Slightly darker warm accent */
+}
+
+.sign-up-page-navigator button:active {
+  background-color: #a73228; /* Even darker warm accent */
+}

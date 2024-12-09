@@ -31,8 +31,6 @@ const SignUpPage: React.FC = () => {
       const response = await CreateUser(username, password);
       if (response) {
         fetchUserData(username);
-
-        // Navigate to MyList.tsx
         navigate("/mylist");
       } else {
         setError("Username already exists. Please choose another.");
@@ -47,7 +45,11 @@ const SignUpPage: React.FC = () => {
     <>
       <div className="sign-up-page">
         <h1>Sign Up</h1>
-        {error && <p className="error-message">{error}</p>}
+        {error && (
+          <p className="error-message" role="alert">
+            {error}
+          </p>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username:</label>
@@ -69,16 +71,20 @@ const SignUpPage: React.FC = () => {
               required
             />
           </div>
-          <button type="submit">Sign Up</button>
+          <button type="submit" className="btn">
+            Sign Up
+          </button>
         </form>
       </div>
+      <div className="sign-up-page-navigator">
       <div className="sign-up-page-navigator-wrapper">
         <button
-          className="sign-up-page-navigator"
+          
           onClick={() => navigate("/signin")}
         >
           Sign in
         </button>
+      </div>
       </div>
     </>
   );
@@ -86,8 +92,5 @@ const SignUpPage: React.FC = () => {
 
 export default SignUpPage;
 
-// on sucsess of signing up  set the user to the user just created.
-// FecthUser data function should be called within UserApi.tsx
-// navigate the user to MyList.tsx
-// on failure  of signing up due to user already been made give an error.
-// css styling for page.
+
+
