@@ -4,7 +4,7 @@
   padding: 2rem;
   background-color: #293241; /* Light background */
   border-radius: 10px;
-  box-shadow: 0 0 24px rgba(33, 71, 121, 0.8); /* Dark blue shadow */
+  box-shadow: 0 0 24px rgba(34, 71, 121, 0.8); /* Dark blue shadow */
   color: #293241; /* Deep navy text */
   font-family: "Arial", sans-serif;
 }
