@@ -2,106 +2,152 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 50px; /* Reduced top position for better fitting */
+  top: 104px;
   background-color: #3d5a80;
-  width: 70%; /* Further reduced width */
-  max-height: 70vh; /* Limit height to 60% of the viewport */
-  overflow: auto; /* Allow internal scrolling if necessary */
-  padding: 15px; /* Smaller padding */
-  border-radius: 15px;
+  width: 80%;
+  height: fit-content;
+  padding: 30px;
+  border-radius: 15px 15px 15px 15px;
   color: #000000;
+  z-index: 2;
+}
+.movie-details-background {
+  width: 100%;
+  height: 100%;
+  background-color: #ee6c4d;
+  place-self: center;
+  border-radius: 15px 15px 15px 15px;
+}
+.movie-details-title-wrapper {
+  display: flex;
   box-sizing: border-box;
 }
-
 .movie-details-title-text {
-  font-size: 25px; /* Smaller title font */
+  font-size: 28px;
   color: #000000;
-  text-align: center;
-  margin: 10px 0;
+  width: 100%;
+  place-items: center;
+  text-align: -webkit-center;
+  margin-top: 15px;
+  margin-bottom: -19px;
 }
-
+.movie-details-close {
+  height: 38px;
+  width: 0px;
+  background-color: #ee6c4d;
+}
+.movie-details-placeholder {
+  height: 30px;
+  width: 30px;
+}
+.movie-details-close img {
+  transform: translate3d(-14px, -11px, 10px);
+}
 .movie-details-content {
   display: flex;
-  flex-direction: row; /* Horizontal alignment */
-  justify-content: space-between; /* Fills horizontal space evenly */
-  align-items: flex-start; /* Align content to the top */
-  gap: 10px;
+  text-align: left;
+  margin-top: 15px;
+}
+.movie-poster-img {
+  margin-left: 20px;
+  height: 250px;
+}
+.white-text {
+  color: #ffffff;
+}
+.movie-details-content-text {
+  margin-left: 15px;
+  font-size: 22px;
+  align-content: center;
+}
+.movie-details-plot {
+  font-size: 22px;
   margin-top: 10px;
   margin-left: 30px;
   margin-right: 20px;
 }
-
-.movie-poster-img {
-  width: 40%; /* Scaled down to take less space */
-  height: auto;
-  max-height: 400px; /* Maintain proportions with reduced height */
-  margin-left: 0;
-}
-
-.movie-details-content-text {
-  width: 65%; /* Take up remaining space */
-  font-size: 16px; /* Smaller font size */
-  line-height: 1.4; /* Adjusted line spacing for readability */
-}
-
-.movie-details-plot {
-  font-size: 16px; /* Smaller font */
-  margin-top: 10px;
-}
-
-.movie-actions {
+.movie-details-add-movie-button {
   display: flex;
-  justify-content: space-between; /* Spread buttons evenly */
-  align-items: center;
-  gap: 5px; /* Reduced spacing between buttons */
-  margin-top: 10px;
-}
-
-.movie-details-add-movie-button,
-.movie-details-recommend-movie-button,
-.movie-details-delete-movie-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: #ee6c4d;
-  padding: 5px 10px; /* Smaller padding */
-  font-size: 14px; /* Smaller font size */
-  border: 1px solid black;
-  border-radius: 5px;
-  cursor: pointer;
-  width: auto;
+  align-items: center;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 100px;
 }
-
-.movie-details-add-movie-button:hover,
-.movie-details-recommend-movie-button:hover,
-.movie-details-delete-movie-button:hover {
-  background-color: #ff7f50; /* Hover effect */
+.movie-details-add-movie-text {
+  font-size: 25px;
 }
-
-.add-movie-dropdown-buttons,
-.recommend-movie-dropdown-buttons,
-.delete-movie-dropdown-buttons {
-  font-size: 14px; /* Smaller font size for dropdown buttons */
-  padding: 5px;
-}
-
-.add-movie-dropdown,
-.recommend-movie-dropdown,
-.delete-movie-dropdown {
-  padding: 10px;
-  width: 90%; /* Scale dropdowns to fit */
-}
-
-
 .add-movie-dropdown {
-  transform: translate(109px, -217px);
+  transform: translate(-44px, -217px);
   height: 248px;
   position: absolute;
   width: 200px;
   background-color: #98c1d9;
   padding: 10px;
-  z-index: 0;
+  z-index: 10;
   border-radius: 15px;
+}
+.add-movie-to {
+  font-size: 35px;
+  color: #000000;
+}
+.add-movie-close {
+  background-color: #98c1d9;
+  margin-left: 18px;
+}
+.add-movie-dropdown-wrapper {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+.add-movie-dropdown-buttons {
+  display: block;
+  place-self: center;
+  font-size: 25px;
+  width: 206px;
+  margin-bottom: 5px;
+  background-color: #98c1d9;
+}
+.dropdown-title {
+  display: flex;
+}
+.movie-actions {
+  display: flex;
+}
+
+.movie-details-recommend-movie-button {
+  display: flex;
+  background-color: #ee6c4d;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.movie-details-recommend-movie-text {
+  font-size: 25px;
+}
+.add-movie-to {
+  font-size: 35px;
+  color: #000000;
+}
+.add-movie-close {
+  background-color: #98c1d9;
+  margin-left: 18px;
+}
+.add-movie-dropdown-wrapper {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+.add-movie-dropdown-buttons {
+  display: block;
+  place-self: center;
+  font-size: 25px;
+  width: 206px;
+  margin-bottom: 5px;
+  background-color: #98c1d9;
+}
+.dropdown-title {
+  display: flex;
 }
 
 .recommend-movie-dropdown {
@@ -114,35 +160,86 @@
   z-index: 10;
   border-radius: 15px;
 }
-
-
 .recommend-movie-to {
   font-size: 35px;
   color: #000000;
 }
-
 .recommend-movie-close {
   background-color: #98c1d9;
   margin-left: 18px;
 }
-
 .recommend-movie-dropdown-wrapper {
   display: flex;
   justify-content: center;
 }
+.recommend-movie-dropdown-buttons {
+  display: block;
+  place-self: center;
+  font-size: 25px;
+  width: fit-content;
+  margin-bottom: 5px;
+  background-color: #98c1d9;
+}
+.dropdown-title {
+  display: flex;
+}
 
+.movie-details-delete-movie-button {
+  display: flex;
+  background-color: #ee6c4d;
+  align-items: center;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 100px;
+}
+.movie-details-delete-movie-text {
+  font-size: 25px;
+}
+.delete-movie-dropdown {
+  transform: translate(153px, -217px);
+  height: 248px;
+  position: absolute;
+  width: 300px;
+  background-color: #98c1d9;
+  padding: 10px;
+  z-index: 10;
+  border-radius: 15px;
+}
+.delete-movie-from {
+  font-size: 35px;
+  color: #000000;
+}
+.delete-movie-close {
+  background-color: #98c1d9;
+  margin-left: 18px;
+}
+.delete-movie-dropdown-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.delete-movie-dropdown-buttons {
+  display: block;
+  place-self: center;
+  font-size: 25px;
+  width: 206px;
+  margin-bottom: 5px;
+  background-color: #98c1d9;
+}
+.dropdown-title {
+  display: flex;
+}
+.movie-actions {
+  display: flex;
+}
 .star-row {
   text-align: center;
   margin-left: 20px;
 }
-
 .star-buttons {
   background-color: #ee6c4d;
-  width: 50px;
-  height: 50px;
-  border: 1px solid black; /* Black border for star buttons */
+  width: 30px;
+  height: 30px;
 }
-
 .star {
   transform: translate(-15px, -10px);
 }
