@@ -66,7 +66,7 @@ function SignInPage() {
             />
           </div>
           <div className="form-group">
-            <label>Password:</label>
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
               value={enteredPassword}
@@ -79,16 +79,18 @@ function SignInPage() {
           </button>
         </form>
       </div>
-      <div className="sign-up-page-navigator-wrapper">
-        <button
-          className="sign-up-page-navigator"
-          onClick={() => navigate("/signup")}
-        >
-          Sign Up
-        </button>
+      <div className="sign-up-page-navigator">
+        <div className="sign-up-page-navigator-wrapper">
+          <button
+            onClick={() => navigate("/signup")}
+          >
+            Sign Up
+          </button>
+        </div>
       </div>
     </>
   );
 }
 
 export default SignInPage;
+
