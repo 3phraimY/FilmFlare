@@ -31,6 +31,7 @@ function Friends() {
     } else {
       setSearchError(null);
       refreshUserData();
+      setIsFriendSearchActive(false);
     }
   };
 
