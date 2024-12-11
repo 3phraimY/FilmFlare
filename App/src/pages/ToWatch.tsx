@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserDataContext";
 import { useNavigate } from "react-router-dom";
 import MovieTile from "./components/MovieTile";
@@ -9,10 +9,13 @@ function ToWatch() {
   if (!context) {
     return <div>Loading...</div>;
   }
-  const { user } = context;
+  const { user, refreshUserData } = context;
+
+  useEffect(() => {
+    refreshUserData();
+  }, [user]);
   const navigate = useNavigate();
   return (
-     
     <>
       <div className="add-movie">
         <button onClick={() => navigate("/search")} style={{ display: "flex" }}>
@@ -31,7 +34,6 @@ function ToWatch() {
         {user?.ToWatch.map((movie) => (
           <MovieTile key={movie.IMDBid} movie={movie} />
         ))}
-        
       </div>
     </>
   );

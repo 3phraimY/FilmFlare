@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserDataContext";
 import { useNavigate } from "react-router-dom";
 import MovieTile from "./components/MovieTile";
@@ -9,7 +9,12 @@ function Favorites() {
   if (!context) {
     return <div>Loading...</div>;
   }
-  const { user } = context;
+  const { user, refreshUserData } = context;
+
+  useEffect(() => {
+    refreshUserData();
+  }, [user]);
+
   const navigate = useNavigate();
   return (
     <>

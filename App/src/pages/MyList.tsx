@@ -1,5 +1,5 @@
 import MovieTile from "./components/MovieTile";
-import { useContext, useMemo } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext, Movie } from "../contexts/UserDataContext";
 import "./MyList.css";
@@ -9,8 +9,12 @@ function MyList() {
   if (!context) {
     return <div>Loading...</div>;
   }
-  const { user } = context;
+  const { user, refreshUserData } = context;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    refreshUserData();
+  }, [user]);
 
   interface RecommendedMovie {
     IMDBid: string | number;
@@ -81,7 +85,8 @@ function MyList() {
                 {recommendedMovie.count > 1 ? "friends" : "friend"}
               </div>
               <div>
-                <strong>Names:</strong> {recommendedMovie.recommenders.join(", ")}
+                <strong>Names:</strong>{" "}
+                {recommendedMovie.recommenders.join(", ")}
               </div>
             </div>
           ))}
